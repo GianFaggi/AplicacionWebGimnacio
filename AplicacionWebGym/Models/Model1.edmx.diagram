@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bbe729cc9481448183f41d7cc11ca06c" Name="Diagram1">
+        <EntityTypeShape EntityType="PWGBDModel.DatosPersona" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.Ejercicios" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.Medidas" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.Pagos" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.Problemas" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.Turnos" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PWGBDModel.loginDB" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="PWGBDModel.FK_DatosPersona_Turnos" ManuallyRouted="false" />
+        <AssociationConnector Association="PWGBDModel.FK_Ejercicios_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="PWGBDModel.FK_Medidas_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="PWGBDModel.FK_Pagos_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="PWGBDModel.FK_Problemas_DatosPersona" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

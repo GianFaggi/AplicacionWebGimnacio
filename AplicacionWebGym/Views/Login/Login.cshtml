@@ -1,0 +1,48 @@
+﻿@model AplicacionWebGym.Models.loginDB
+@using System.ComponentModel.DataAnnotations;
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<h2>Login</h2>
+<style>
+    fieldset {
+        background-color: #eeee;
+        margin: 10% 35% auto;
+        padding: 35px 30px;
+    }
+</style>
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <fieldset>
+        <legend style="text-align:center; border-radius:3px 4px">Ingresar al Sistema </legend>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @if (@ViewBag.Message != null)
+        {
+            <div style="border: 1px solid red">
+                @ViewBag.Message
+            </div>
+        }
+        <table align="center" border="1" draggable="auto">
+            <tr>
+                <td> <label for="uname"><b>Usuario</b></label></td>
+                <td>@Html.TextBoxFor(a => a.usuario, new { @placeholder = "Ingrese Usuario" }) </td>
+                <td>@Html.ValidationMessageFor(a => a.usuario)</td>
+            </tr>
+            <tr>
+                <td><b>Clave</b></td>
+                <td>@Html.PasswordFor(a => a.contraseña, new { @placeholder = "Ingrese Password" })</td>
+                <td>@Html.ValidationMessageFor(a => a.contraseña)</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" checked="checked" name="remember"> Remember me</td>
+                <td>
+                    <input type="submit" value="Login" />
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}

@@ -1,0 +1,467 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PWGBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DatosPersona">
+          <Key>
+            <PropertyRef Name="IdDatos" />
+          </Key>
+          <Property Name="IdDatos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="sex" Type="varchar" MaxLength="50" />
+          <Property Name="IdTurnos" Type="int" />
+        </EntityType>
+        <EntityType Name="Ejercicios">
+          <Key>
+            <PropertyRef Name="IdEjercicios" />
+          </Key>
+          <Property Name="IdEjercicios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="abdominales" Type="int" />
+          <Property Name="IdDatos" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="loginDB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" />
+          <Property Name="contraseña" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Medidas">
+          <Key>
+            <PropertyRef Name="idMedidas" />
+          </Key>
+          <Property Name="idMedidas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="altura" Type="int" />
+          <Property Name="medidasAbd" Type="int" />
+          <Property Name="medidasCintura" Type="int" />
+          <Property Name="medidasPecho" Type="int" />
+          <Property Name="IdDatos" Type="int" />
+        </EntityType>
+        <EntityType Name="Pagos">
+          <Key>
+            <PropertyRef Name="IdPagos" />
+          </Key>
+          <Property Name="IdPagos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="esAsociado" Type="varchar" MaxLength="50" />
+          <Property Name="IdDatos" Type="int" />
+        </EntityType>
+        <EntityType Name="Problemas">
+          <Key>
+            <PropertyRef Name="IdProblemas" />
+          </Key>
+          <Property Name="IdProblemas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="posee" Type="varchar" MaxLength="50" />
+          <Property Name="tipo" Type="varchar" MaxLength="250" />
+          <Property Name="IdDatos" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Turnos">
+          <Key>
+            <PropertyRef Name="IdTurnos" />
+          </Key>
+          <Property Name="IdTurnos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Horario" Type="int" />
+        </EntityType>
+        <Association Name="FK_DatosPersona_Turnos">
+          <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turnos">
+              <PropertyRef Name="IdTurnos" />
+            </Principal>
+            <Dependent Role="DatosPersona">
+              <PropertyRef Name="IdTurnos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ejercicios_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Ejercicios" Type="Self.Ejercicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Ejercicios">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medidas_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Medidas" Type="Self.Medidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Medidas">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Problemas_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Problemas" Type="Self.Problemas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Problemas">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PWGBDModelStoreContainer">
+          <EntitySet Name="DatosPersona" EntityType="Self.DatosPersona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ejercicios" EntityType="Self.Ejercicios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medidas" EntityType="Self.Medidas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Problemas" EntityType="Self.Problemas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="loginDB" EntityType="Self.loginDB" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [loginDB].[id] AS [id], 
+    [loginDB].[usuario] AS [usuario], 
+    [loginDB].[contraseña] AS [contraseña]
+    FROM [dbo].[loginDB] AS [loginDB]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_DatosPersona_Turnos" Association="Self.FK_DatosPersona_Turnos">
+            <End Role="Turnos" EntitySet="Turnos" />
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ejercicios_DatosPersona" Association="Self.FK_Ejercicios_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Ejercicios" EntitySet="Ejercicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medidas_DatosPersona" Association="Self.FK_Medidas_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Medidas" EntitySet="Medidas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_DatosPersona" Association="Self.FK_Pagos_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Problemas_DatosPersona" Association="Self.FK_Problemas_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Problemas" EntitySet="Problemas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PWGBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DatosPersona">
+          <Key>
+            <PropertyRef Name="IdDatos" />
+          </Key>
+          <Property Name="IdDatos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdTurnos" Type="Int32" />
+          <NavigationProperty Name="Turnos" Relationship="Self.FK_DatosPersona_Turnos" FromRole="DatosPersona" ToRole="Turnos" />
+          <NavigationProperty Name="Ejercicios" Relationship="Self.FK_Ejercicios_DatosPersona" FromRole="DatosPersona" ToRole="Ejercicios" />
+          <NavigationProperty Name="Medidas" Relationship="Self.FK_Medidas_DatosPersona" FromRole="DatosPersona" ToRole="Medidas" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_DatosPersona" FromRole="DatosPersona" ToRole="Pagos" />
+          <NavigationProperty Name="Problemas" Relationship="Self.FK_Problemas_DatosPersona" FromRole="DatosPersona" ToRole="Problemas" />
+        </EntityType>
+        <EntityType Name="Ejercicios">
+          <Key>
+            <PropertyRef Name="IdEjercicios" />
+          </Key>
+          <Property Name="IdEjercicios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="abdominales" Type="Int32" />
+          <Property Name="IdDatos" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Ejercicios_DatosPersona" FromRole="Ejercicios" ToRole="DatosPersona" />
+        </EntityType>
+        <EntityType Name="Medidas">
+          <Key>
+            <PropertyRef Name="idMedidas" />
+          </Key>
+          <Property Name="idMedidas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="altura" Type="Int32" />
+          <Property Name="medidasAbd" Type="Int32" />
+          <Property Name="medidasCintura" Type="Int32" />
+          <Property Name="medidasPecho" Type="Int32" />
+          <Property Name="IdDatos" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Medidas_DatosPersona" FromRole="Medidas" ToRole="DatosPersona" />
+        </EntityType>
+        <EntityType Name="Pagos">
+          <Key>
+            <PropertyRef Name="IdPagos" />
+          </Key>
+          <Property Name="IdPagos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="esAsociado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdDatos" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Pagos_DatosPersona" FromRole="Pagos" ToRole="DatosPersona" />
+        </EntityType>
+        <EntityType Name="Problemas">
+          <Key>
+            <PropertyRef Name="IdProblemas" />
+          </Key>
+          <Property Name="IdProblemas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="posee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdDatos" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Problemas_DatosPersona" FromRole="Problemas" ToRole="DatosPersona" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Turnos">
+          <Key>
+            <PropertyRef Name="IdTurnos" />
+          </Key>
+          <Property Name="IdTurnos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Horario" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_DatosPersona_Turnos" FromRole="Turnos" ToRole="DatosPersona" />
+        </EntityType>
+        <EntityType Name="loginDB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_DatosPersona_Turnos">
+          <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turnos">
+              <PropertyRef Name="IdTurnos" />
+            </Principal>
+            <Dependent Role="DatosPersona">
+              <PropertyRef Name="IdTurnos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ejercicios_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Ejercicios" Type="Self.Ejercicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Ejercicios">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medidas_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Medidas" Type="Self.Medidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Medidas">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pagos_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Problemas_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Problemas" Type="Self.Problemas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Problemas">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PWGBD" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DatosPersona" EntityType="Self.DatosPersona" />
+          <EntitySet Name="Ejercicios" EntityType="Self.Ejercicios" />
+          <EntitySet Name="Medidas" EntityType="Self.Medidas" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" />
+          <EntitySet Name="Problemas" EntityType="Self.Problemas" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Turnos" EntityType="Self.Turnos" />
+          <EntitySet Name="loginDB" EntityType="Self.loginDB" />
+          <AssociationSet Name="FK_DatosPersona_Turnos" Association="Self.FK_DatosPersona_Turnos">
+            <End Role="Turnos" EntitySet="Turnos" />
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ejercicios_DatosPersona" Association="Self.FK_Ejercicios_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Ejercicios" EntitySet="Ejercicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medidas_DatosPersona" Association="Self.FK_Medidas_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Medidas" EntitySet="Medidas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pagos_DatosPersona" Association="Self.FK_Pagos_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Problemas_DatosPersona" Association="Self.FK_Problemas_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Problemas" EntitySet="Problemas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PWGBDModelStoreContainer" CdmEntityContainer="PWGBD">
+          <EntitySetMapping Name="DatosPersona">
+            <EntityTypeMapping TypeName="PWGBDModel.DatosPersona">
+              <MappingFragment StoreEntitySet="DatosPersona">
+                <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="IdTurnos" ColumnName="IdTurnos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ejercicios">
+            <EntityTypeMapping TypeName="PWGBDModel.Ejercicios">
+              <MappingFragment StoreEntitySet="Ejercicios">
+                <ScalarProperty Name="IdEjercicios" ColumnName="IdEjercicios" />
+                <ScalarProperty Name="abdominales" ColumnName="abdominales" />
+                <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medidas">
+            <EntityTypeMapping TypeName="PWGBDModel.Medidas">
+              <MappingFragment StoreEntitySet="Medidas">
+                <ScalarProperty Name="idMedidas" ColumnName="idMedidas" />
+                <ScalarProperty Name="altura" ColumnName="altura" />
+                <ScalarProperty Name="medidasAbd" ColumnName="medidasAbd" />
+                <ScalarProperty Name="medidasCintura" ColumnName="medidasCintura" />
+                <ScalarProperty Name="medidasPecho" ColumnName="medidasPecho" />
+                <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagos">
+            <EntityTypeMapping TypeName="PWGBDModel.Pagos">
+              <MappingFragment StoreEntitySet="Pagos">
+                <ScalarProperty Name="IdPagos" ColumnName="IdPagos" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="esAsociado" ColumnName="esAsociado" />
+                <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Problemas">
+            <EntityTypeMapping TypeName="PWGBDModel.Problemas">
+              <MappingFragment StoreEntitySet="Problemas">
+                <ScalarProperty Name="IdProblemas" ColumnName="IdProblemas" />
+                <ScalarProperty Name="posee" ColumnName="posee" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PWGBDModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turnos">
+            <EntityTypeMapping TypeName="PWGBDModel.Turnos">
+              <MappingFragment StoreEntitySet="Turnos">
+                <ScalarProperty Name="IdTurnos" ColumnName="IdTurnos" />
+                <ScalarProperty Name="Horario" ColumnName="Horario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="loginDB">
+            <EntityTypeMapping TypeName="PWGBDModel.loginDB">
+              <MappingFragment StoreEntitySet="loginDB">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.PagosCLS>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista_Pagos</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Ingresar Pago", "Agregar_Pagos")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPagos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.esAsociado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDatos)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPagos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.esAsociado)
+            </td>
+            <td>
+                @AplicacionWebGym.Controllers.PagosController.nombre_persona(item.IdDatos)
+                
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.IdPagos}) |
+                @Html.ActionLink("Detalles", "DetallePago", new { id = item.IdPagos }) |
+                @Html.ActionLink("Eliminar", "delete", new { id = item.IdPagos })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
