@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "DESKTOP-GSAJFMT:SQLEXPRESS",
+      "dynamicId": null
+    }
+  }
+}

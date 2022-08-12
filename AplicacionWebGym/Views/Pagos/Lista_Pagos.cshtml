@@ -1,38 +1,38 @@
 ﻿@model IEnumerable<AplicacionWebGym.Models.PagosCLS>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Lista_Pagos";
 }
 
-<!DOCTYPE html>
-
-<html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Lista_Pagos</title>
 </head>
-<body>
-    <p>
-        @Html.ActionLink("Ingresar Pago", "Agregar_Pagos")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdPagos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.esAsociado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdDatos)
-            </th>
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model) {
+
+<h2>Lista de Pagos</h2>
+
+<p>
+    @Html.ActionLink("Ingresar Pago", "Agregar_Pagos")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPagos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.esAsociado)
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.IdPagos)
@@ -45,16 +45,23 @@
             </td>
             <td>
                 @AplicacionWebGym.Controllers.PagosController.nombre_persona(item.IdDatos)
-                
             </td>
             <td>
-                @Html.ActionLink("Editar", "Editar", new { id = item.IdPagos}) |
-                @Html.ActionLink("Detalles", "DetallePago", new { id = item.IdPagos }) |
-                @Html.ActionLink("Eliminar", "delete", new { id = item.IdPagos })
+            <td>
+                @Html.ActionLink(" ", "Editar", new { id = item.IdPagos }, new { @class = "glyphicon glyphicon-edit btn btn-primary" }) |
+                @Html.ActionLink(" ", "DetalleJugador", new { id = item.IdPagos }, new { @class = "glyphicon glyphicon-eye-open btn btn-primary" }) |
+                @Html.ActionLink(" ", "delete", new { id = item.IdPagos }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick = "DeleteConfirm()" })
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+
+</table>
+
+<script type="text/javascript">
+    function DeleteConfirm() {
+        if (confirm("Quieres Eliminar el Registro"))
+            return true;
+        else
+            return false;
+    }
+</script>

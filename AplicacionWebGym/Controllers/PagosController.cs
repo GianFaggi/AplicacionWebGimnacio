@@ -108,7 +108,7 @@ namespace AplicacionWebGym.Controllers
                     db.SaveChanges();
                 }
             }
-            return View();
+            return View("Lista_Pagos");
 
         }
 
@@ -145,13 +145,13 @@ namespace AplicacionWebGym.Controllers
                     DatosPersona alu = db.DatosPersona.Find(id);
                     db.DatosPersona.Remove(alu);
                     db.SaveChanges();
-                    return RedirectToAction("Lista_Personas");
+                    return RedirectToAction("Lista_Pagos");
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Error al Borrar Jugador", ex);
-                return RedirectToAction("Lista_Personas");
+                return RedirectToAction("Lista_Pagos");
             }
         }
 
@@ -200,7 +200,7 @@ namespace AplicacionWebGym.Controllers
             {
                 ModelState.AddModelError("Error al Editar el Pago- ", ex);
             }
-            return View();
+            return View("Lista_Pagos");
 
 
         }

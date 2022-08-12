@@ -1,7 +1,7 @@
 ﻿@model AplicacionWebGym.Models.Pagos
 
 @{
-    Layout = null;
+    ViewBag.Title = "Editar";
 }
 
 <!DOCTYPE html>
@@ -12,10 +12,10 @@
     <title>Editar</title>
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Editar", "Pagos", FormMethod.Post, new { @id = "frmEditar" }))
     {
         @Html.AntiForgeryToken()
-        
+
         <div class="form-horizontal">
             <h4>PagosCLS</h4>
             <hr />
@@ -27,7 +27,7 @@
                     @Html.ValidationMessageFor(model => model.IdPagos, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -35,7 +35,7 @@
                     @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.esAsociado, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -43,7 +43,7 @@
                     @Html.ValidationMessageFor(model => model.esAsociado, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 @Html.LabelFor(model => model.IdDatos, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -51,17 +51,26 @@
                     @Html.ValidationMessageFor(model => model.IdDatos, "", new { @class = "text-danger" })
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <a class="btn btn-danger" onclick="return SaveConfirm" href="/Pagos/Editar/@Model.IdPagos">Guardar</a>
                 </div>
             </div>
         </div>
     }
-    
+
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Volver a la lista", "Lista_Pagos")
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+    function SaveConfirm() {
+        if (confirm("Quieres Guardar el Registro"))
+            return true;
+        else
+            return false;
+    }
+</script>

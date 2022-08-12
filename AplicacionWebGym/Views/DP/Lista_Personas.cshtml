@@ -9,28 +9,31 @@
 <h2>Lista Personas</h2>
 
 <div class="navbar navbar-inverse navbar">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li >@using (Html.BeginForm("generarPDF", "DP"))
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @using (Html.BeginForm("generarPDF", "DP"))
                 {
-                  <p>  <h4><button id="submitButton" type="submit">Importar PDF</button></h4></p>
-            }
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @using (Html.BeginForm())
-                    {
-                        <p>
-                            <h4> @Html.TextBox("odatosCLS.lastName", "Buscar por apellido")
-                            <input type="submit" value="Buscar" /></h4>
+                    <p>  <h4><button id="submitButton" type="submit">Importar PDF</button></h4></p>
+                }
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <h4>
+                            @Html.TextBox("odatosCLS.lastName", "Buscar por apellido")
+                            <input type="submit" value="Buscar" />
+                        </h4>
 
-                        </p>
-                    }
-                </li>
-            </ul>
-        </div>
+                    </p>
+                }
+            </li>
+        </ul>
     </div>
+</div>
 
 <table class="table">
     <tr>
@@ -88,9 +91,9 @@
             <td>
                 @Html.ActionLink("Editar", "Editar", new { id = item.IdDatos }) |
                 @Html.ActionLink("Detalles", "DetallePersona", new { id = item.IdDatos }) |
-                @Html.ActionLink("Eliminar", "delete", new { id = item.IdDatos })
-            </td>
+                @Html.ActionLink("Eliminar", "delete", new { id = item.IdDatos }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick = "DeleteConfirm()" }))
         </tr>
     }
 
 </table>
+
