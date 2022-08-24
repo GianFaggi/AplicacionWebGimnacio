@@ -256,16 +256,23 @@
     <Content Include="Views\DP\Editar.cshtml" />
     <Content Include="Views\DP\DetallePersona.cshtml" />
     <Content Include="Views\Turnos\Index.cshtml" />
-    <Content Include="Views\Pagos\Agregar_Pagos.cshtml" />
-    <Content Include="Views\Pagos\Index.cshtml" />
+    <Content Include="Views\Pagos\Lista_Pagos_Persona.cshtml" />
     <Content Include="Views\Pagos\Lista_Pagos.cshtml" />
-    <Content Include="Views\Pagos\Editar.cshtml" />
-    <Content Include="Views\Pagos\Roto.cshtml" />
+    <Content Include="Views\Pagos\Agregar_Pagos.cshtml" />
+    <Content Include="Views\Pagos\DetallePago.cshtml" />
+    <Content Include="Views\Ejercicios\Lista_Personas_Ejercicios.cshtml" />
+    <Content Include="Views\Ejercicios\Lista_Ejercicios.cshtml" />
+    <Content Include="Views\Ejercicios\Agregar_Ejercicio.cshtml" />
+    <Content Include="Views\Ejercicios\DetalleEjercicios.cshtml" />
+    <Content Include="Views\Ejercicios\EditarEjercicios.cshtml" />
+    <Content Include="Views\Medidas\Lista_Personas_Medidas.cshtml" />
+    <Content Include="Views\Medidas\Lista_Medidas.cshtml" />
+    <Content Include="Views\Medidas\Agregar_Medidas.cshtml" />
+    <Content Include="Views\Medidas\DetalleMedidas.cshtml" />
+    <Content Include="Views\Medidas\EditarMedidas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ejercicios\" />
-    <Folder Include="Views\Medidas\" />
     <Folder Include="Views\Problemas\" />
   </ItemGroup>
   <ItemGroup>

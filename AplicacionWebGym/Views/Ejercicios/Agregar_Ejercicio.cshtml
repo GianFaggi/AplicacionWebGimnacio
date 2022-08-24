@@ -1,0 +1,51 @@
+﻿@model AplicacionWebGym.Models.EjerciciosCLS
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Agregar_Ejercicio</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <h4>EjerciciosCLS</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.abdominales, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.abdominales, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.abdominales, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fecha_ej, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fecha_ej, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fecha_ej, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Volver a la Lista", "Lista_Personas_Ejercicios")
+    </div>
+</body>
+</html>

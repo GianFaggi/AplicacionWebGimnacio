@@ -1,0 +1,75 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.MedidasCLS>
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista_Medidas</title>
+</head>
+<body>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idMedidas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.altura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.medidasAbd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.medidasCintura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.medidasPecho)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDatos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fecha_med)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idMedidas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.altura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.medidasAbd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.medidasCintura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.medidasPecho)
+            </td>
+            <td>
+                @AplicacionWebGym.Controllers.MedidasController.nombre_persona(item.IdDatos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha_med)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditarMedidas", new { id = item.idMedidas, id2 = item.IdDatos }) |
+                @Html.ActionLink("Detalles", "DetalleMedidas", new { id = item.idMedidas }) |
+                @Html.ActionLink("Eliminar", "EliminarMedida", new { id = item.idMedidas })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

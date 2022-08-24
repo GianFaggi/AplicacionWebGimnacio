@@ -2,6 +2,7 @@
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,44 +13,38 @@ namespace AplicacionWebGym.Controllers
 {
     public class PagosController : Controller
     {
-        public List<Pagos> Pagos { get; }
-
-        public List<DatosPersona> DatosPersona { get; }
-
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-        public ActionResult Lista_Pagos(PagosCLS opagosCLS, DatosPersona odatosPersona)
+        /*Listar Personas */
+        public ActionResult Lista_Pagos_Persona(DatosPersona odatosPersona)
         {
             {
                 string apellido_persona = odatosPersona.lastName;
-                List<PagosCLS> lista = null;
+                List<DPCLS> lista = null;
                 using (var db = new PWGBD())
                 {
                     if (odatosPersona.lastName == null)
                     {
-                        lista = (from Pagos in db.Pagos
-                                 select new PagosCLS
+                        lista = (from dp in db.DatosPersona
+                                 select new DPCLS
                                  {
-                                     IdPagos = Pagos.IdPagos,
-                                     fecha = Pagos.fecha,
-                                     esAsociado = Pagos.esAsociado,
-                                     IdDatos = Pagos.IdDatos
+                                     IdDatos = dp.IdDatos,
+                                     name = dp.name,
+                                     lastName = dp.lastName
                                  }).ToList();
 
                         Session["Lista_Pagos"] = lista;
                     }
                     else
                     {
-                        lista = (from pagos in db.Pagos
-                                 where odatosPersona.lastName.Contains(apellido_persona)
-                                 select new PagosCLS
+                        lista = (from dp in db.DatosPersona
+                                 where dp.lastName.Contains(apellido_persona)
+                                 select new DPCLS
                                  {
-                                     IdPagos = pagos.IdPagos,
-                                     fecha = pagos.fecha,
-                                     esAsociado = pagos.esAsociado,
-                                     IdDatos = pagos.IdDatos
+                                     IdDatos = dp.IdDatos,
+                                     name = dp.name,
+                                     lastName = dp.lastName
                                  }).ToList();
-                        Session["Lista_Personas"] = lista;
+                        Session["Lista_Pagos"] = lista;
                     }
                 }
                 return View(lista);
@@ -57,17 +52,38 @@ namespace AplicacionWebGym.Controllers
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        /*Traer nombre de persona*/
-
-        public ActionResult ListarPersonas()
+        public ActionResult Lista_Pagos(int id, Pagos pagos)
         {
 
-            using (var db = new PWGBD())
+            try
             {
-                return PartialView(db.DatosPersona.ToList());
-            }
+                List<PagosCLS> lista2 = null;
+                using (var db = new PWGBD())
+                {
+                    lista2 = (from dp in db.Pagos
+                             where dp.IdDatos == id
+                             select new PagosCLS
+                             {
+                                 IdPagos = dp.IdPagos,
+                                 esAsociado  = dp.esAsociado,
+                                 fecha = dp.fecha,
+                                 IdDatos = dp.IdDatos
+                             }).ToList();
+                    Session["Lista_Pagos2"] = lista2;
+                    return View(lista2);
 
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DEL JUGADOR", ex);
+                return RedirectToAction("Lista_Pagos");
+            }
         }
+
+
+        /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+        /*Trae nombre de personar *construccion* */
 
         public static string nombre_persona(int? IdDatos)
         {
@@ -79,8 +95,7 @@ namespace AplicacionWebGym.Controllers
 
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        /*Agregar jugador por clase*/
-
+        /*Agregar pago por Clase*/
         public ActionResult Agregar_Pagos()
         {
 
@@ -90,7 +105,7 @@ namespace AplicacionWebGym.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Agregar_Pagos(PagosCLS opagosCLS)
+        public ActionResult Agregar_Pagos(PagosCLS opagosCLS, int? id)
         {
             if (!ModelState.IsValid)
             {
@@ -100,20 +115,23 @@ namespace AplicacionWebGym.Controllers
             {
                 using (var db = new PWGBD())
                 {
-                    Pagos pagos = new Pagos();
-                    pagos.fecha = opagosCLS.fecha;
-                    pagos.esAsociado = opagosCLS.esAsociado;
-                    pagos.IdDatos = opagosCLS.IdDatos;
-                    db.Pagos.Add(pagos);
+                    Pagos datospago = new Pagos
+                    {
+                        IdPagos = opagosCLS.IdPagos,
+                        fecha = opagosCLS.fecha,
+                        esAsociado = opagosCLS.esAsociado,
+                        IdDatos = id
+                    };
+                    db.Pagos.Add(datospago);
                     db.SaveChanges();
                 }
             }
-            return View("Lista_Pagos");
+            return RedirectToAction("Lista_Pagos_Persona");
 
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        /*Detalle Jugador */
+        /*Detalle Pago */
 
         public ActionResult DetallePago(int id)
         {
@@ -121,88 +139,40 @@ namespace AplicacionWebGym.Controllers
             {
                 using (var db = new PWGBD())
                 {
-                    DatosPersona datos = db.DatosPersona.Find(id);
+                    Pagos datos = db.Pagos.Find(id);
                     return View(datos);
 
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DEL JUGADOR", ex);
-                return RedirectToAction("Lista_Personas");
-            }
-        }
-
-        /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        /*delete */
-
-        public ActionResult delete(int id)
-        {
-            try
-            {
-                using (var db = new PWGBD())
-                {
-                    DatosPersona alu = db.DatosPersona.Find(id);
-                    db.DatosPersona.Remove(alu);
-                    db.SaveChanges();
-                    return RedirectToAction("Lista_Pagos");
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("Error al Borrar Jugador", ex);
+                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DEL PAGO", ex);
                 return RedirectToAction("Lista_Pagos");
             }
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        /* Editar Jugador*/
+        /*Eliminar */
 
-        public ActionResult Editar(int id)
+        public ActionResult EliminarPago(int id)
         {
             try
             {
                 using (var db = new PWGBD())
                 {
-                    Pagos datos = db.Pagos.Find(id);
-
-                    return View(datos);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public ActionResult Editar(Pagos datos)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(datos);
-            }
-            try
-            {
-                using (var db = new PWGBD())
-                {
-                    Pagos dat = db.Pagos.Find(datos.IdPagos);
-                    dat.fecha = datos.fecha;
-                    dat.esAsociado  = datos.esAsociado;
-                    dat.IdDatos = datos.IdDatos;
+                    Pagos alu = db.Pagos.Find(id);
+                    db.Pagos.Remove(alu);
                     db.SaveChanges();
-                    return RedirectToAction("Lista_Pagos");
+                    return RedirectToAction("Lista_Pagos_Persona");
+
                 }
+
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("Error al Editar el Pago- ", ex);
+                ModelState.AddModelError("Error al Borrar el pago", ex);
+                return RedirectToAction("Lista_Pagos_Persona");
             }
-            return View("Lista_Pagos");
-
-
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/

@@ -15,6 +15,7 @@ namespace AplicacionWebGym.Models
 
 
     public int IdDatos { get; set; }
+        [Required(ErrorMessage = "Ingrese un nombre.")]
         [DisplayName("Nombre")]
         public string name { get; set; }
         [DisplayName("Apellido")]
@@ -23,6 +24,7 @@ namespace AplicacionWebGym.Models
         public Nullable<int> age { get; set; }
         [DisplayName("Genero")]
         public string sex { get; set; }
+        [Required(ErrorMessage = "Seleccione un horario")]
         [DisplayName("Horario")]
         public Nullable<turno> IdTurnos { get; set; }
 

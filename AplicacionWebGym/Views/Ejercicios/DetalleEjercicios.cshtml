@@ -1,0 +1,57 @@
+﻿@model AplicacionWebGym.Models.Ejercicios
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DetalleEjercicios</title>
+</head>
+<body>
+    <div>
+        <h4>Ejercicios</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.IdEjercicios)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdEjercicios)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.abdominales)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.abdominales)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.fecha_ej)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.fecha_ej)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IdDatos)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IdDatos)
+            </dd>
+        </dl>
+    </div>
+    <p>
+ |
+        @Html.ActionLink("Volver a la lista", "Lista_Ejercicios")
+    </p>
+</body>
+</html>

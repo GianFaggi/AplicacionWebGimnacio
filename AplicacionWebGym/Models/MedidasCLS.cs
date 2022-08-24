@@ -14,6 +14,8 @@ namespace AplicacionWebGym.Models
         public Nullable<int> medidasPecho { get; set; }
         public Nullable<int> IdDatos { get; set; }
 
+        public Nullable<System.DateTime> fecha_med { get; set; }
+
         public virtual DatosPersona DatosPersona { get; set; }
 
     }

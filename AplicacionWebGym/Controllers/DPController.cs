@@ -63,7 +63,6 @@ namespace AplicacionWebGym.Controllers
                              IdTurnos = turno.IdTurnos,
                              Horario = (int?)turno.Horario
                          }).ToList();
-
                         Session["Lista_Personas"] = lista;
                     }
                 }
@@ -72,7 +71,7 @@ namespace AplicacionWebGym.Controllers
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-        /*Agregar jugador por clase*/
+        /*Agregar Persona por clase*/
 
         public ActionResult Agregar_Clientes()
         {
@@ -173,7 +172,7 @@ namespace AplicacionWebGym.Controllers
             [HttpPost]
             [ValidateAntiForgeryToken]
 
-            public ActionResult Editar(DatosPersona datos)
+            public ActionResult Editar(DatosPersona datos, int id )
             {
                 if (!ModelState.IsValid)
                 {
@@ -184,6 +183,7 @@ namespace AplicacionWebGym.Controllers
                     using (var db = new PWGBD())
                     {
                     DatosPersona dat = db.DatosPersona.Find(datos.IdDatos);
+                        dat.IdDatos = id;
                         dat.name = datos.name;
                         dat.lastName = datos.lastName;
                         dat.age = datos.age;

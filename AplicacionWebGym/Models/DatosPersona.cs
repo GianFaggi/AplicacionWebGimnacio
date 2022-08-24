@@ -11,9 +11,7 @@ namespace AplicacionWebGym.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class DatosPersona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,21 +24,14 @@ namespace AplicacionWebGym.Models
         }
     
         public int IdDatos { get; set; }
-        [DisplayName("Nombre")]
         public string name { get; set; }
-        [DisplayName("Apellido")]
         public string lastName { get; set; }
-        [DisplayName("Edad")]
         public Nullable<int> age { get; set; }
-        [DisplayName("Genero")]
         public string sex { get; set; }
-        [DisplayName("Horario")]
         public Nullable<int> IdTurnos { get; set; }
     
         public virtual Turnos Turnos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-
         public virtual ICollection<Ejercicios> Ejercicios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medidas> Medidas { get; set; }
@@ -48,7 +39,5 @@ namespace AplicacionWebGym.Models
         public virtual ICollection<Pagos> Pagos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Problemas> Problemas { get; set; }
-
-
     }
 }

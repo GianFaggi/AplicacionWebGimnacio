@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PWGBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PWGBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DatosPersona">
           <Key>
             <PropertyRef Name="IdDatos" />
@@ -23,6 +23,7 @@
           <Property Name="IdEjercicios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="abdominales" Type="int" />
           <Property Name="IdDatos" Type="int" />
+          <Property Name="fecha_ej" Type="date" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -44,6 +45,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <Property Name="medidasCintura" Type="int" />
           <Property Name="medidasPecho" Type="int" />
           <Property Name="IdDatos" Type="int" />
+          <Property Name="fecha_med" Type="date" />
         </EntityType>
         <EntityType Name="Pagos">
           <Key>
@@ -176,8 +178,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             <End Role="Problemas" EntitySet="Problemas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PWGBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -205,6 +206,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <Property Name="abdominales" Type="Int32" />
           <Property Name="IdDatos" Type="Int32" />
           <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Ejercicios_DatosPersona" FromRole="Ejercicios" ToRole="DatosPersona" />
+          <Property Name="fecha_ej" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Medidas">
           <Key>
@@ -217,6 +219,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <Property Name="medidasPecho" Type="Int32" />
           <Property Name="IdDatos" Type="Int32" />
           <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Medidas_DatosPersona" FromRole="Medidas" ToRole="DatosPersona" />
+          <Property Name="fecha_med" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Pagos">
           <Key>
@@ -375,6 +378,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <EntitySetMapping Name="Ejercicios">
             <EntityTypeMapping TypeName="PWGBDModel.Ejercicios">
               <MappingFragment StoreEntitySet="Ejercicios">
+                <ScalarProperty Name="fecha_ej" ColumnName="fecha_ej" />
                 <ScalarProperty Name="IdEjercicios" ColumnName="IdEjercicios" />
                 <ScalarProperty Name="abdominales" ColumnName="abdominales" />
                 <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
@@ -384,6 +388,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <EntitySetMapping Name="Medidas">
             <EntityTypeMapping TypeName="PWGBDModel.Medidas">
               <MappingFragment StoreEntitySet="Medidas">
+                <ScalarProperty Name="fecha_med" ColumnName="fecha_med" />
                 <ScalarProperty Name="idMedidas" ColumnName="idMedidas" />
                 <ScalarProperty Name="altura" ColumnName="altura" />
                 <ScalarProperty Name="medidasAbd" ColumnName="medidasAbd" />

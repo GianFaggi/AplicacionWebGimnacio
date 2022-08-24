@@ -13,13 +13,7 @@
 <div class="form-horizontal">
     <h4>Datos_Cliente</h4>
     <hr />
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdDatos, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.IdDatos, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.IdDatos, "", new { @class = "text-danger" })
-        </div>
-    </div>
+
 
 
     <div class="form-group">
@@ -73,7 +67,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Guardar" class="btn btn-default" />
         </div>
     </div>
 </div>

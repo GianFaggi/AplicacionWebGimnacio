@@ -91,9 +91,9 @@
             <td>
                 @Html.ActionLink("Editar", "Editar", new { id = item.IdDatos }) |
                 @Html.ActionLink("Detalles", "DetallePersona", new { id = item.IdDatos }) |
-                @Html.ActionLink("Eliminar", "delete", new { id = item.IdDatos }, new { @class = "glyphicon glyphicon-trash btn btn-danger", @onclick = "DeleteConfirm()" }))
+                @Html.ActionLink("Eliminar", "delete", new { id = item.IdDatos })
         </tr>
-    }
+                    }
 
 </table>
 
