@@ -2,11 +2,16 @@
 
 @{
     ViewBag.Title = "Lista_Personas";
+
 }
 
 
+<p>----</p>
+<p>----</p>
 
-<h2>Lista Personas</h2>
+
+
+
 
 <div class="navbar navbar-inverse navbar">
     <div class="navbar-collapse collapse">
@@ -15,6 +20,12 @@
                 @using (Html.BeginForm("generarPDF", "DP"))
                 {
                     <p>  <h4><button id="submitButton" type="submit">Importar PDF</button></h4></p>
+                }
+            </li>
+            <li>
+                @using (Html.BeginForm("generarExcel", "DP"))
+                {
+                    <p>  <h4><button id="submitButton" type="submit">Importar Excel</button></h4></p>
                 }
             </li>
         </ul>
@@ -93,7 +104,7 @@
                 @Html.ActionLink("Detalles", "DetallePersona", new { id = item.IdDatos }) |
                 @Html.ActionLink("Eliminar", "delete", new { id = item.IdDatos })
         </tr>
-                    }
+    }
 
 </table>
 

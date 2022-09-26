@@ -17,67 +17,82 @@ namespace AplicacionWebGym.Controllers
         /*Listar Personas */
         public ActionResult Lista_Personas_Ejercicios(DatosPersona odatosPersona)
         {
-            {
-                string apellido_persona = odatosPersona.lastName;
-                List<DPCLS> lista = null;
-                using (var db = new PWGBD())
-                {
-                    if (odatosPersona.lastName == null)
-                    {
-                        lista = (from dp in db.DatosPersona
-                                 select new DPCLS
-                                 {
-                                     IdDatos = dp.IdDatos,
-                                     name = dp.name,
-                                     lastName = dp.lastName
-                                 }).ToList();
 
-                        Session["Lista_Ejercicios"] = lista;
-                    }
-                    else
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+
+                {
+                    string apellido_persona = odatosPersona.lastName;
+                    List<DPCLS> lista = null;
+                    using (var db = new PWGBD())
                     {
-                        lista = (from dp in db.DatosPersona
-                                 where dp.lastName.Contains(apellido_persona)
-                                 select new DPCLS
-                                 {
-                                     IdDatos = dp.IdDatos,
-                                     name = dp.name,
-                                     lastName = dp.lastName
-                                 }).ToList();
-                        Session["Lista_Ejercicios"] = lista;
+                        if (odatosPersona.lastName == null)
+                        {
+                            lista = (from dp in db.DatosPersona
+                                     select new DPCLS
+                                     {
+                                         IdDatos = dp.IdDatos,
+                                         name = dp.name,
+                                         lastName = dp.lastName
+                                     }).ToList();
+
+                            Session["Lista_Ejercicios"] = lista;
+                        }
+                        else
+                        {
+                            lista = (from dp in db.DatosPersona
+                                     where dp.lastName.Contains(apellido_persona)
+                                     select new DPCLS
+                                     {
+                                         IdDatos = dp.IdDatos,
+                                         name = dp.name,
+                                         lastName = dp.lastName
+                                     }).ToList();
+                            Session["Lista_Ejercicios"] = lista;
+                        }
                     }
+                    return View(lista);
                 }
-                return View(lista);
             }
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
         public ActionResult Lista_Ejercicios(int id, Ejercicios ejercicios)
         {
-
-            try
+            if (Session["UserID"] == null)
             {
-                List<EjerciciosCLS> lista2 = null;
-                using (var db = new PWGBD())
-                {
-                    lista2 = (from dp in db.Ejercicios
-                              where dp.IdDatos == id
-                              select new EjerciciosCLS
-                              {
-                                  IdEjercicios = dp.IdEjercicios,
-                                  abdominales = dp.abdominales,  
-                                  fecha_ej = dp.fecha_ej,
-                                  IdDatos = dp.IdDatos
-                              }).ToList();
-                    Session["Lista_Ejercicios2"] = lista2;
-                    return View(lista2);
-
-                }
+                return RedirectToAction("Login");
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LOS EJERCICIOS", ex);
-                return RedirectToAction("Lista_Personas_Ejercicios");
+                try
+                {
+                    List<EjerciciosCLS> lista2 = null;
+                    using (var db = new PWGBD())
+                    {
+                        lista2 = (from dp in db.Ejercicios
+                                  where dp.IdDatos == id
+                                  select new EjerciciosCLS
+                                  {
+                                      IdEjercicios = dp.IdEjercicios,
+                                      abdominales = dp.abdominales,
+                                      fecha_ej = dp.fecha_ej,
+                                      IdDatos = dp.IdDatos
+                                  }).ToList();
+                        Session["Lista_Ejercicios2"] = lista2;
+                        return View(lista2);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LOS EJERCICIOS", ex);
+                    return RedirectToAction("Lista_Personas_Ejercicios");
+                }
             }
         }
 
@@ -108,8 +123,15 @@ namespace AplicacionWebGym.Controllers
         /*Agregar pago por Clase*/
         public ActionResult Agregar_Ejercicio()
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
 
-            return View();
+                return View();
+            }
         }
 
         [HttpPost]
@@ -146,18 +168,25 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult EditarEjercicios(int id)
         {
-            try
+            if (Session["UserID"] == null)
             {
-                using (var db = new PWGBD())
-                {
-                    Ejercicios datos = db.Ejercicios.Find(id);
-
-                    return View(datos);
-                }
+                return RedirectToAction("Login");
             }
-            catch (Exception)
+            else
             {
-                throw;
+                try
+                {
+                    using (var db = new PWGBD())
+                    {
+                        Ejercicios datos = db.Ejercicios.Find(id);
+
+                        return View(datos);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -199,19 +228,26 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult DetalleEjercicios(int id)
         {
-            try
+            if (Session["UserID"] == null)
             {
-                using (var db = new PWGBD())
-                {
-                    Ejercicios datos = db.Ejercicios.Find(id);
-                    return View(datos);
-
-                }
+                return RedirectToAction("Login");
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LOS EJERCICIOS", ex);
-                return RedirectToAction("Lista_Ejercicios");
+                try
+                {
+                    using (var db = new PWGBD())
+                    {
+                        Ejercicios datos = db.Ejercicios.Find(id);
+                        return View(datos);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LOS EJERCICIOS", ex);
+                    return RedirectToAction("Lista_Ejercicios");
+                }
             }
         }
 

@@ -14,37 +14,45 @@ namespace AplicacionWebGym.Controllers
         /*Listar Personas */
         public ActionResult Lista_Personas_Medidas(DatosPersona odatosPersona)
         {
-            {
-                string apellido_persona = odatosPersona.lastName;
-                List<DPCLS> lista = null;
-                using (var db = new PWGBD())
-                {
-                    if (odatosPersona.lastName == null)
-                    {
-                        lista = (from dp in db.DatosPersona
-                                 select new DPCLS
-                                 {
-                                     IdDatos = dp.IdDatos,
-                                     name = dp.name,
-                                     lastName = dp.lastName
-                                 }).ToList();
 
-                        Session["Lista_Medidas"] = lista;
-                    }
-                    else
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                {
+                    string apellido_persona = odatosPersona.lastName;
+                    List<DPCLS> lista = null;
+                    using (var db = new PWGBD())
                     {
-                        lista = (from dp in db.DatosPersona
-                                 where dp.lastName.Contains(apellido_persona)
-                                 select new DPCLS
-                                 {
-                                     IdDatos = dp.IdDatos,
-                                     name = dp.name,
-                                     lastName = dp.lastName
-                                 }).ToList();
-                        Session["Lista_Medidas"] = lista;
+                        if (odatosPersona.lastName == null)
+                        {
+                            lista = (from dp in db.DatosPersona
+                                     select new DPCLS
+                                     {
+                                         IdDatos = dp.IdDatos,
+                                         name = dp.name,
+                                         lastName = dp.lastName
+                                     }).ToList();
+
+                            Session["Lista_Medidas"] = lista;
+                        }
+                        else
+                        {
+                            lista = (from dp in db.DatosPersona
+                                     where dp.lastName.Contains(apellido_persona)
+                                     select new DPCLS
+                                     {
+                                         IdDatos = dp.IdDatos,
+                                         name = dp.name,
+                                         lastName = dp.lastName
+                                     }).ToList();
+                            Session["Lista_Medidas"] = lista;
+                        }
                     }
+                    return View(lista);
                 }
-                return View(lista);
             }
         }
 
@@ -53,32 +61,39 @@ namespace AplicacionWebGym.Controllers
         public ActionResult Lista_Medidas(int id, Medidas medidas)
         {
 
-            try
+            if (Session["UserID"] == null)
             {
-                List<MedidasCLS> lista2 = null;
-                using (var db = new PWGBD())
-                {
-                    lista2 = (from dp in db.Medidas
-                              where dp.IdDatos == id
-                              select new MedidasCLS
-                              {
-                                  idMedidas = dp.idMedidas,
-                                  altura = dp.altura,
-                                  medidasAbd = dp.medidasAbd,
-                                  medidasCintura = dp.medidasCintura,
-                                  medidasPecho = dp.medidasPecho,
-                                  fecha_med = dp.fecha_med,
-                                  IdDatos = id,
-                              }).ToList();
-                    Session["Lista_Medidas2"] = lista2;
-                    return View(lista2);
-
-                }
+                return RedirectToAction("Login");
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LA MEDIDA", ex);
-                return RedirectToAction("Lista_Medidas2");
+                try
+                {
+                    List<MedidasCLS> lista2 = null;
+                    using (var db = new PWGBD())
+                    {
+                        lista2 = (from dp in db.Medidas
+                                  where dp.IdDatos == id
+                                  select new MedidasCLS
+                                  {
+                                      idMedidas = dp.idMedidas,
+                                      altura = dp.altura,
+                                      medidasAbd = dp.medidasAbd,
+                                      medidasCintura = dp.medidasCintura,
+                                      medidasPecho = dp.medidasPecho,
+                                      fecha_med = dp.fecha_med,
+                                      IdDatos = id,
+                                  }).ToList();
+                        Session["Lista_Medidas2"] = lista2;
+                        return View(lista2);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LA MEDIDA", ex);
+                    return RedirectToAction("Lista_Medidas2");
+                }
             }
         }
 
@@ -101,7 +116,16 @@ namespace AplicacionWebGym.Controllers
         public ActionResult Agregar_Medidas()
         {
 
-            return View();
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+
+                return View();
+
+            }
         }
 
         [HttpPost]
@@ -139,18 +163,26 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult EditarMedidas(int id)
         {
-            try
-            {
-                using (var db = new PWGBD())
-                {
-                    Medidas datos = db.Medidas.Find(id);
 
-                    return View(datos);
-                }
-            }
-            catch (Exception)
+            if (Session["UserID"] == null)
             {
-                throw;
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                try
+                {
+                    using (var db = new PWGBD())
+                    {
+                        Medidas datos = db.Medidas.Find(id);
+
+                        return View(datos);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
         }
 
@@ -195,19 +227,27 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult DetalleMedidas(int id)
         {
-            try
-            {
-                using (var db = new PWGBD())
-                {
-                    Medidas datos = db.Medidas.Find(id);
-                    return View(datos);
 
-                }
-            }
-            catch (Exception ex)
+            if (Session["UserID"] == null)
             {
-                ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LA MEDIDA", ex);
-                return RedirectToAction("Lista_Medidas");
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                try
+                {
+                    using (var db = new PWGBD())
+                    {
+                        Medidas datos = db.Medidas.Find(id);
+                        return View(datos);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DE LA MEDIDA", ex);
+                    return RedirectToAction("Lista_Medidas");
+                }
             }
         }
 

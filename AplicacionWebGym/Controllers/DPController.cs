@@ -1,8 +1,10 @@
 ﻿using AplicacionWebGym.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -22,52 +24,61 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult Lista_Personas(DPCLS odatosCLS)
         {
+            if (Session["UserID"] == null)
             {
-                string apellido_persona = odatosCLS.lastName;
-                List<DPCLS> lista = null;
-                using (var db = new PWGBD())
-                {
-                    if (odatosCLS.lastName == null)
-                    {
-                        lista = (from datos in db.DatosPersona
-                                 select new DPCLS
-                                 {
-                                     IdDatos = datos.IdDatos,
-                                     lastName = datos.lastName,
-                                     name = datos.name,
-                                     age = datos.age,
-                                     sex = datos.sex,
-                                     IdTurnos = (DPCLS.turno?)datos.IdTurnos,
-
-
-                                 }).ToList();
-
-                        Session["Lista_Personas"] = lista;
-                    }
-                    else
-                    {
-                        lista = (from datos in db.DatosPersona
-                                 where datos.lastName.Contains(apellido_persona)
-                                 select new DPCLS
-                                 {
-                                     IdDatos = datos.IdDatos,
-                                     lastName = datos.lastName,
-                                     name = datos.name,
-                                     age = datos.age,
-                                     sex = datos.sex,
-                                     IdTurnos = (DPCLS.turno?)datos.IdTurnos
-                                 }).ToList();
-                        (from turno in db.Turnos
-                         select new TurnosCLS
-                         {
-                             IdTurnos = turno.IdTurnos,
-                             Horario = (int?)turno.Horario
-                         }).ToList();
-                        Session["Lista_Personas"] = lista;
-                    }
-                }
-                return View(lista);
+                return RedirectToAction("Login");
             }
+            else
+            
+                {
+                    string apellido_persona = odatosCLS.lastName;
+                    List<DPCLS> lista = null;
+                    using (var db = new PWGBD())
+                    {
+
+
+                        if (odatosCLS.lastName == null)
+                        {
+                            lista = (from datos in db.DatosPersona
+                                     select new DPCLS
+                                     {
+                                         IdDatos = datos.IdDatos,
+                                         lastName = datos.lastName,
+                                         name = datos.name,
+                                         age = datos.age,
+                                         sex = datos.sex,
+                                         IdTurnos = (DPCLS.turno?)datos.IdTurnos,
+
+
+                                     }).ToList();
+
+                            Session["Lista_Personas"] = lista;
+                        }
+                        else
+                        {
+                            lista = (from datos in db.DatosPersona
+                                     where datos.lastName.Contains(apellido_persona)
+                                     select new DPCLS
+                                     {
+                                         IdDatos = datos.IdDatos,
+                                         lastName = datos.lastName,
+                                         name = datos.name,
+                                         age = datos.age,
+                                         sex = datos.sex,
+                                         IdTurnos = (DPCLS.turno?)datos.IdTurnos
+                                     }).ToList();
+                            (from turno in db.Turnos
+                             select new TurnosCLS
+                             {
+                                 IdTurnos = turno.IdTurnos,
+                                 Horario = (int?)turno.Horario
+                             }).ToList();
+                            Session["Lista_Personas"] = lista;
+                        }
+                    }
+                    return View(lista);
+                }
+            
         }
 
         /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -75,15 +86,24 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult Agregar_Clientes()
         {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
 
-            return View();
+                return View();
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
 
         public ActionResult Agregar_Clientes(DPCLS odatosCLS)
+
         {
+
             if (!ModelState.IsValid)
             {
                 return View(odatosCLS);
@@ -111,11 +131,18 @@ namespace AplicacionWebGym.Controllers
 
         public ActionResult DetallePersona(int id)
             {
+
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
                 try
                 {
                     using (var db = new PWGBD())
                     {
-                    DatosPersona datos = db.DatosPersona.Find(id);
+                        DatosPersona datos = db.DatosPersona.Find(id);
                         return View(datos);
 
                     }
@@ -125,6 +152,7 @@ namespace AplicacionWebGym.Controllers
                     ModelState.AddModelError("ERROR AL MOSTRAR DETALLES DEL CLIENTE", ex);
                     return RedirectToAction("Lista_Personas");
                 }
+            }
             }
 
             /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -154,11 +182,18 @@ namespace AplicacionWebGym.Controllers
 
             public ActionResult Editar(int id)
             {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+
                 try
                 {
                     using (var db = new PWGBD())
                     {
-                    DatosPersona datos = db.DatosPersona.Find(id);
+                        DatosPersona datos = db.DatosPersona.Find(id);
 
                         return View(datos);
                     }
@@ -167,6 +202,7 @@ namespace AplicacionWebGym.Controllers
                 {
                     throw;
                 }
+            }
             }
 
             [HttpPost]
@@ -266,8 +302,58 @@ namespace AplicacionWebGym.Controllers
             }
             return File(buffer, "application/pdf");
         }
+
+        /*---------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+        /*Reporte Excel*/
+        public FileResult generarExcel()
+        {
+            byte[] buffer;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ExcelPackage ep = new ExcelPackage();
+                //Crear hoja
+                ep.Workbook.Worksheets.Add("Reporte Personas");
+                    ExcelWorksheet ew = ep.Workbook.Worksheets[0];
+                //Creamos y ponemos nombre a las columnas
+                ew.Cells[1, 1].Value = "Id Datos";
+                ew.Cells[1, 2].Value = "Nombre";
+                ew.Cells[1, 3].Value = "Apellido";
+                ew.Cells[1, 4].Value = "Edad";
+                ew.Cells[1, 5].Value = "Genero";
+                ew.Column(1).Width = 20;
+                ew.Column(2).Width = 60;
+                ew.Column(3).Width = 60;
+                ew.Column(4).Width = 60;
+                ew.Column(5).Width = 60;
+                using (var range = ew.Cells[1, 1, 1, 5])
+                {
+                    range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    range.Style.Font.Color.SetColor(Color.White);
+                    range.Style.Fill.BackgroundColor.SetColor(Color.DarkRed);
+
+                }
+                List<DPCLS> lista = (List<DPCLS>)Session["Lista_Personas"];
+                int nregistros = lista.Count;
+                for (int i = 0; i < nregistros; i++)
+                    {
+                    ew.Cells[i + 2, 1].Value = lista[i].IdDatos;
+                    ew.Cells[i + 2, 2].Value = lista[i].name;
+                    ew.Cells[i + 2, 3].Value = lista[i].lastName;
+                    ew.Cells[i + 2, 4].Value = lista[i].age;
+                    ew.Cells[i + 2, 5].Value = lista[i].sex;
+                }
+                ep.SaveAs(ms);
+                buffer = ms.ToArray();
+            }
+
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadssheetml.sheet");
+        }
+
+
+
+
     }
- }
+}
 
     
 
