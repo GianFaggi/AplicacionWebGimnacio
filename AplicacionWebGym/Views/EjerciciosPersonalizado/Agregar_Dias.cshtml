@@ -1,0 +1,44 @@
+﻿@model AplicacionWebGym.Models.Ejercicios_TCLS
+
+@{
+    ViewBag.Title = "Agregar_Dia";
+    Layout = "~/Views/Shared/_LayoutPersonalizado.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Agregar_Ejercicio</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Agregar Dia</h2>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Dia, "--Seleccione Dia--", new { @class = "form - control" })
+                @Html.ValidationMessageFor(model => model.Dia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Volver a la Lista", "Lista_Personas_Ejercicios_Personalizados", null, new { @class = "btn btn-default" })
+    </div>
+</body>
+</html>

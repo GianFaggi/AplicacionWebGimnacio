@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.Ejercicios_TCLS>
+
+@{
+    ViewBag.Title = "Lista_Dias";
+    Layout = "~/Views/Shared/_LayoutPersonalizado.cshtml";
+}
+
+<h2>Lista Dias por Cliente</h2>
+
+<table class="table">
+    <tr>
+        <th hidden>
+            @Html.DisplayNameFor(model => model.IdEjercicios_T)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dia)
+        </th>
+        <th hidden>
+            @Html.DisplayNameFor(model => model.IdDatos)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.IdEjercicios_T)
+            </td>
+            <td>
+                @if (((int?)item.Dia) == 1)
+                {
+                    <span>Lunes</span>
+                }
+                @if (((int?)item.Dia) == 2)
+                {
+                    <span>Martes</span>
+                }
+                @if (((int?)item.Dia) == 3)
+                {
+                    <span>Miercoles</span>
+                }
+                @if (((int?)item.Dia) == 4)
+                {
+                    <span>Jueves</span>
+                }
+                @if (((int?)item.Dia) == 5)
+                {
+                    <span>Viernes</span>
+                }
+                @if (((int?)item.Dia) == 6)
+                {
+                    <span>Sabado</span>
+
+                }
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.IdDatos)
+            </td>
+            <td>
+                @Html.ActionLink("Ver Ejercicios", "Lista_Ejercicios_Personalizado", new { id = item.IdEjercicios_T }, new { @class = "btn btn-default" }) |
+                @Html.ActionLink("Agregar Ejercicio", "Agregar_Ejercicio_Personalizado", new { id = item.IdEjercicios_T }, new { @class = "btn btn-default" }) |
+                @Html.ActionLink("Eliminar Dia", "Eliminar_Dia", new { id = item.IdEjercicios_T, id2 = item.IdDatos }, new { @class = "btn btn-default", onclick = "confirmDel(event)" })
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script>
+        function confirmDel(e) {
+            var agree = confirm("¿Realmente deseas ELIMINAR este dia?");
+
+            if (agree == false)
+                e.preventDefault();
+        }
+
+</script>
+
+

@@ -1,0 +1,43 @@
+﻿@model AplicacionWebGym.Models.Ejercicios_PCLS
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Agregar fecha</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <h2>Agregar Fecha de realizacion de ejercicio</h2>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fecha_ej_p, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.fecha_ej_p, new { htmlAttributes = new { @class = "form-control", @placeholder = "06/04/1997" } })
+                @Html.ValidationMessageFor(model => model.fecha_ej_p, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Volver a la Lista", "Lista_Personas_Ejercicios", null, new {@class = "btn btn-default"})
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.PagosCLS>
+
+@{
+    ViewBag.Title = "Lista_Pagos_Personalizado";
+    Layout = "~/Views/Shared/_LayoutPersonalizado.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista_Pagos_Persona</title>
+</head>
+
+<body>
+    <h2> Lista de Pagos por Cliente</h2>
+    <div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    @using (Html.BeginForm("generarPDF", "PagosPersonalizado"))
+                    {
+                        <p>  <h4><button id="submitButton" type="submit">Exportar PDF</button></h4></p>
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+    @using (Html.BeginForm("Lista_Pagos_Personalizado", "Pagos"))
+    {
+        <table class="table">
+            
+            <tr>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.IdPagos)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.esAsociado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdDatos)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <font color="purple"></font>
+                <tr>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.IdPagos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fecha)
+                    </td>
+                    <td>
+                        @if (((int?)item.esAsociado) == 1)
+                        {
+                            <span>Si</span>
+                        }
+                        @if (((int?)item.esAsociado) == 2)
+                        {
+                            <span>No</span>
+                        }
+                    </td>
+                    <td>
+                        @AplicacionWebGym.Controllers.PagosFuncionalController.nombre_persona(item.IdDatos)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "EliminarPago", new { id = item.IdPagos, id2 = item.IdDatos }, new { @class = "btn btn-danger glyphicon glyphicon-trash", onclick = "confirmDel(event)" })
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+        @Html.ActionLink("Volver a la lista de personas", "Lista_Pagos_Persona_Personalizado", null, new { @class = "btn btn-default" })
+
+    }
+</body>
+</html>
+<script>
+        function confirmDel(e) {
+            var agree = confirm("¿Realmente deseas ELIMINAR este pago?");
+
+            if (agree == false)
+                e.preventDefault();
+        }
+
+</script>
+

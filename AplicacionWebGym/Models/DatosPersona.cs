@@ -11,33 +11,47 @@ namespace AplicacionWebGym.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DatosPersona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DatosPersona()
         {
-            this.Ejercicios = new HashSet<Ejercicios>();
+            this.Ejercicios_P = new HashSet<Ejercicios_P>();
+            this.Ejercicios_T = new HashSet<Ejercicios_T>();
             this.Medidas = new HashSet<Medidas>();
             this.Pagos = new HashSet<Pagos>();
             this.Problemas = new HashSet<Problemas>();
         }
     
         public int IdDatos { get; set; }
+        [Required(ErrorMessage = "Ingrese un nombre.")]
+        [DisplayName("Nombre:")]
         public string name { get; set; }
+        [Required(ErrorMessage = "Ingrese un nombre.")]
+        [DisplayName("Apellido:")]
         public string lastName { get; set; }
+        [DisplayName("Edad:")]
         public Nullable<int> age { get; set; }
-        public string sex { get; set; }
+        [DisplayName("Sexo:")]
+        public Nullable<int> sex { get; set; }
+        [DisplayName("Turno:")]
         public Nullable<int> IdTurnos { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
     
-        public virtual Turnos Turnos { get; set; }
+        public virtual login_DB login_DB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ejercicios> Ejercicios { get; set; }
+        public virtual ICollection<Ejercicios_P> Ejercicios_P { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ejercicios_T> Ejercicios_T { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Medidas> Medidas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pagos> Pagos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Problemas> Problemas { get; set; }
+        public virtual Turnos Turnos { get; set; }
     }
 }

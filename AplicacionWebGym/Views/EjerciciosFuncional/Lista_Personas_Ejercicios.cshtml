@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.DPCLS>
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <h2>Lista de Clientes</h2>
+
+    <div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    @using (Html.BeginForm())
+                    {
+                        <p>
+                            <h4>
+                                @Html.TextBox("odatosPersona.lastName", "")
+                                <input type="submit" value="Buscar por apellido" />
+                            </h4>
+
+                        </p>
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastName)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Fechas", "Lista_Fechas", new { id = item.IdDatos }, new { @class = "btn btn-default" })   |
+                    @Html.ActionLink("Agregar Fechas", "Agregar_Fecha", new { id = item.IdDatos }, new { @class = "btn btn-default" }) 
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

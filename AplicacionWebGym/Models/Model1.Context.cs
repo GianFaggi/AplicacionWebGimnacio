@@ -13,10 +13,10 @@ namespace AplicacionWebGym.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PWGBD : DbContext
+    public partial class AppGym2Entities : DbContext
     {
-        public PWGBD()
-            : base("name=PWGBD")
+        public AppGym2Entities()
+            : base("name=AppGym2Entities")
         {
         }
     
@@ -26,12 +26,17 @@ namespace AplicacionWebGym.Models
         }
     
         public virtual DbSet<DatosPersona> DatosPersona { get; set; }
-        public virtual DbSet<Ejercicios> Ejercicios { get; set; }
+        public virtual DbSet<DetalleEjerciciosP> DetalleEjerciciosP { get; set; }
+        public virtual DbSet<DetalleInventario> DetalleInventario { get; set; }
+        public virtual DbSet<Ejercicios_P> Ejercicios_P { get; set; }
+        public virtual DbSet<Ejercicios_T> Ejercicios_T { get; set; }
+        public virtual DbSet<login_DB> login_DB { get; set; }
         public virtual DbSet<Medidas> Medidas { get; set; }
         public virtual DbSet<Pagos> Pagos { get; set; }
         public virtual DbSet<Problemas> Problemas { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Inventario> Inventario { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
-        public virtual DbSet<loginDB> loginDB { get; set; }
+        public virtual DbSet<DetalleEjercicioT> DetalleEjercicioT { get; set; }
     }
 }

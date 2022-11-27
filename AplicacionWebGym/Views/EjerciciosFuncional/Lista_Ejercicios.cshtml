@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.DetalleEjercicioPCLS>
+
+@{
+    ViewBag.Title = "Lista_Ejercicios";
+    Layout = "~/Views/Shared/_LayoutFuncional.cshtml";
+}
+
+<h2>Lista de Ejercicios</h2>
+
+<div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @using (Html.BeginForm("generarExcel", "EjerciciosFuncional"))
+                {
+                    <p>  <h4><button id="submitButton" type="submit">Exportar Excel</button></h4></p>
+                }
+            </li>
+        </ul>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th hidden>
+            @Html.DisplayNameFor(model => model.detalle_Ejercicios_P)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tiempoEnSegundos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdEjercicios_P)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td hidden>
+            @Html.DisplayFor(modelItem => item.detalle_Ejercicios_P)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tiempoEnSegundos)
+        </td>
+        <td>
+            @AplicacionWebGym.Controllers.EjerciciosFuncionalController.fecha(item.IdEjercicios_P)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "EliminarEjercicio", new { id = item.detalle_Ejercicios_P, id2 = item.IdEjercicios_P },  new { @class = "btn btn-default glyphicon glyphicon-trash", onclick = "confirmDel(event)" })
+        </td>
+    </tr>
+}
+
+</table>
+
+<script>
+        function confirmDel(e) {
+            var agree = confirm("¿Realmente deseas ELIMINAR este ejercicio?");
+
+            if (agree == false)
+                e.preventDefault();
+        }
+
+</script>

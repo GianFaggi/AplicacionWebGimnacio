@@ -1,0 +1,64 @@
+﻿@using AplicacionWebGym.Models
+@model List<AplicacionWebGym.Models.DPCLS>
+@{
+    ViewBag.Title = "Lista_Pagos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Lista_Pagos</title>
+</head>
+<body>
+    <h2>Lista de Clientes</h2>
+    <div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    @using (Html.BeginForm())
+                    {
+                        <p>
+                            <h4>
+                                @Html.TextBox("odatosPersona.lastName", "")
+                                <input type="submit" value="Buscar por apellido" />
+                            </h4>
+
+                        </p>
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].lastName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Ver lista de pagos", "Lista_Pagos", new { id = item.IdDatos } , new { @class = "btn btn-default"}) |
+                    @Html.ActionLink("Agregar Pago", "Agregar_Pagos", new { id = item.IdDatos }, new { @class = "btn btn-default" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</body>
+</html>

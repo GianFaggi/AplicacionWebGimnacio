@@ -1,0 +1,77 @@
+﻿@model AplicacionWebGym.Models.DetalleInventario
+
+@{
+    ViewBag.Title = "Editar_Detalles_Personalizado";
+    Layout = "~/Views/Shared/_LayoutPersonalizado.cshtml";
+}
+
+<h2>Modificar Detalles Material</h2>
+
+@using (Html.BeginForm("Editar_Detalles_Personalizado", "InventarioPersonalizado", FormMethod.Post, new { @id = "frmEditar" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.IdDetalleInventario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdDetalleInventario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdDetalleInventario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.estado,
+                                      new List<SelectListItem>()
+                                      {
+                                         new SelectListItem() { Text = "Bueno", Value =  "1"},
+                                         new SelectListItem() { Text = "Regular", Value =  "2"},
+                                         new SelectListItem() { Text = "Malo", Value =  "3"},
+                                      },
+                                      new { htmlAttributes = new { @class = "form-control" } }
+                                    )
+                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.IdInventario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdInventario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdInventario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Lista_Tipo_Inventario_Personalizado", null, new { @class = "btn btn-default" })
+</div>
+
+<script>
+    var frmEditar = document.getElementById("frmEditar");
+    frmEditar.onsubmit = function (e) {
+        e.preventDefault();
+        if (confirm("Desea GUARDAR los cambios") == 1) {
+            frmEditar.submit();
+        }
+    }
+</script>

@@ -11,12 +11,19 @@ namespace AplicacionWebGym.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Pagos
     {
         public int IdPagos { get; set; }
+        [Required(ErrorMessage = "Ingrese la fecha del pago.")]
+        [DisplayName("Dia")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> fecha { get; set; }
-        public string esAsociado { get; set; }
+        [DisplayName("Es Asociado")]
+        public Nullable<int> esAsociado { get; set; }
+        [DisplayName("Nombre Cliente")]
         public Nullable<int> IdDatos { get; set; }
     
         public virtual DatosPersona DatosPersona { get; set; }

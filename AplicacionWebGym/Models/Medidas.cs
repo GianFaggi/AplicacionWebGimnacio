@@ -11,15 +11,23 @@ namespace AplicacionWebGym.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Medidas
     {
-        public int idMedidas { get; set; }
+        public int IdMedidas { get; set; }
+        [DisplayName("Altura")]
         public Nullable<int> altura { get; set; }
+        [DisplayName("Toma de medidas Abdominales")]
         public Nullable<int> medidasAbd { get; set; }
+        [DisplayName("Toma de medidas Cintura")]
         public Nullable<int> medidasCintura { get; set; }
+        [DisplayName("Toma de medidas Pecho")]
         public Nullable<int> medidasPecho { get; set; }
         public Nullable<int> IdDatos { get; set; }
+        [DisplayName("Fecha de medidas")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> fecha_med { get; set; }
     
         public virtual DatosPersona DatosPersona { get; set; }

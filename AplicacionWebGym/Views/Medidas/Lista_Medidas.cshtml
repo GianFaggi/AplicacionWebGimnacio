@@ -11,12 +11,26 @@
     <meta name="viewport" content="width=device-width" />
     <title>Lista_Medidas</title>
 </head>
+<h2> Lista Medidas por Cliente</h2>
+
+<div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @using (Html.BeginForm("generarExcel", "Medidas"))
+                {
+                    <p>  <h4><button id="submitButton" type="submit">Exportar Excel</button></h4></p>
+                }
+            </li>
+        </ul>
+    </div>
+</div>
 <body>
 
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.idMedidas)
+            <th hidden>
+                @Html.DisplayNameFor(model => model.IdMedidas)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.altura)
@@ -38,38 +52,46 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.idMedidas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.altura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.medidasAbd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.medidasCintura)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.medidasPecho)
-            </td>
-            <td>
-                @AplicacionWebGym.Controllers.MedidasController.nombre_persona(item.IdDatos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fecha_med)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "EditarMedidas", new { id = item.idMedidas, id2 = item.IdDatos }) |
-                @Html.ActionLink("Detalles", "DetalleMedidas", new { id = item.idMedidas }) |
-                @Html.ActionLink("Eliminar", "EliminarMedida", new { id = item.idMedidas })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.IdMedidas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.altura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.medidasAbd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.medidasCintura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.medidasPecho)
+                </td>
+                <td>
+                    @AplicacionWebGym.Controllers.MedidasController.nombre_persona(item.IdDatos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fecha_med)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "EliminarMedida", new { id = item.IdDatos, id2 = item.IdMedidas }, new { @class = "btn btn-default glyphicon glyphicon-trash", onclick = "confirmDel(event)" })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>
+<script>
+        function confirmDel(e) {
+            var agree = confirm("¿Realmente deseas visitar este sitio?");
+
+            if (agree == false)
+                e.preventDefault();
+        }
+
+</script>

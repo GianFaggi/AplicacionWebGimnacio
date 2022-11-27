@@ -1,0 +1,43 @@
+﻿@model AplicacionWebGym.Models.InventarioCLS
+
+@{
+    ViewBag.Title = "Agregar_Tipo_Inventario";
+    Layout = "~/Views/Shared/_LayoutFuncional.cshtml";
+}
+
+<h2>Agregar Material</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoInventario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TipoInventario, new { htmlAttributes = new { @class = "form-control", @placeholder = "Pesas" } })
+                @Html.ValidationMessageFor(model => model.TipoInventario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.IdUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdUsuario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Agregar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista de materiales", "Lista_Tipo_Inventario", null, new { @class = "btn btn-default"})
+</div>

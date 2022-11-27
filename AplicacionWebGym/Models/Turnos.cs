@@ -11,7 +11,8 @@ namespace AplicacionWebGym.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Turnos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +22,12 @@ namespace AplicacionWebGym.Models
         }
     
         public int IdTurnos { get; set; }
-        public Nullable<int> Horario { get; set; }
+        [DisplayName("Horario")]
+        public string Horario { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DatosPersona> DatosPersona { get; set; }
+        public virtual login_DB login_DB { get; set; }
     }
 }

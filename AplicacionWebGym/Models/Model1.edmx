@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PWGBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AppGymBD.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DatosPersona">
           <Key>
             <PropertyRef Name="IdDatos" />
@@ -13,33 +13,76 @@
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="lastName" Type="varchar" MaxLength="50" />
           <Property Name="age" Type="int" />
-          <Property Name="sex" Type="varchar" MaxLength="50" />
+          <Property Name="sex" Type="int" />
           <Property Name="IdTurnos" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
         </EntityType>
-        <EntityType Name="Ejercicios">
+        <EntityType Name="DetalleEjerciciosP">
           <Key>
-            <PropertyRef Name="IdEjercicios" />
+            <PropertyRef Name="detalle_Ejercicios_P" />
           </Key>
-          <Property Name="IdEjercicios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="abdominales" Type="int" />
-          <Property Name="IdDatos" Type="int" />
-          <Property Name="fecha_ej" Type="date" />
+          <Property Name="detalle_Ejercicios_P" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="tiempoEnSegundos" Type="int" />
+          <Property Name="IdEjercicios_P" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="loginDB">
+        <EntityType Name="DetalleEjercicioT">
+          <Key>
+            <PropertyRef Name="IdDE" />
+          </Key>
+          <Property Name="IdDE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoDeEjercicio" Type="varchar" MaxLength="150" />
+          <Property Name="repeticiones" Type="int" />
+          <Property Name="IdET" Type="int" />
+        </EntityType>
+        <EntityType Name="DetalleInventario">
+          <Key>
+            <PropertyRef Name="IdDetalleInventario" />
+          </Key>
+          <Property Name="IdDetalleInventario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="estado" Type="int" />
+          <Property Name="IdInventario" Type="int" />
+        </EntityType>
+        <EntityType Name="Ejercicios_P">
+          <Key>
+            <PropertyRef Name="IdEjercicios_P" />
+          </Key>
+          <Property Name="IdEjercicios_P" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_ej_p" Type="date" />
+          <Property Name="IdDatos" Type="int" />
+        </EntityType>
+        <EntityType Name="Ejercicios_T">
+          <Key>
+            <PropertyRef Name="IdEjercicios_T" />
+          </Key>
+          <Property Name="IdEjercicios_T" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dia" Type="int" />
+          <Property Name="IdDatos" Type="int" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="IdInventario" />
+          </Key>
+          <Property Name="IdInventario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoInventario" Type="varchar" MaxLength="150" />
+          <Property Name="IdUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="login_DB">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="usuario" Type="varchar" MaxLength="50" />
           <Property Name="contraseña" Type="varchar" MaxLength="50" />
+          <Property Name="tipo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Medidas">
           <Key>
-            <PropertyRef Name="idMedidas" />
+            <PropertyRef Name="IdMedidas" />
           </Key>
-          <Property Name="idMedidas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMedidas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="altura" Type="int" />
           <Property Name="medidasAbd" Type="int" />
           <Property Name="medidasCintura" Type="int" />
@@ -53,7 +96,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           </Key>
           <Property Name="IdPagos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fecha" Type="date" />
-          <Property Name="esAsociado" Type="varchar" MaxLength="50" />
+          <Property Name="esAsociado" Type="int" />
           <Property Name="IdDatos" Type="int" />
         </EntityType>
         <EntityType Name="Problemas">
@@ -61,7 +104,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             <PropertyRef Name="IdProblemas" />
           </Key>
           <Property Name="IdProblemas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="posee" Type="varchar" MaxLength="50" />
+          <Property Name="posee" Type="int" />
           <Property Name="tipo" Type="varchar" MaxLength="250" />
           <Property Name="IdDatos" Type="int" />
         </EntityType>
@@ -80,8 +123,23 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             <PropertyRef Name="IdTurnos" />
           </Key>
           <Property Name="IdTurnos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Horario" Type="int" />
+          <Property Name="Horario" Type="varchar" MaxLength="50" />
+          <Property Name="IdUsuario" Type="int" />
         </EntityType>
+        <Association Name="FK_DatosPersona_login_DB">
+          <End Role="login_DB" Type="Self.login_DB" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login_DB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DatosPersona">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DatosPersona_Turnos">
           <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
           <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="*" />
@@ -94,20 +152,94 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ejercicios_DatosPersona">
-          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
-          <End Role="Ejercicios" Type="Self.Ejercicios" Multiplicity="*" />
+        <Association Name="FK_DetalleEjerciciosP_Ejercicios_P">
+          <End Role="Ejercicios_P" Type="Self.Ejercicios_P" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DetalleEjerciciosP" Type="Self.DetalleEjerciciosP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ejercicios_P">
+              <PropertyRef Name="IdEjercicios_P" />
+            </Principal>
+            <Dependent Role="DetalleEjerciciosP">
+              <PropertyRef Name="IdEjercicios_P" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleEjercicioT_Ejercicios_T">
+          <End Role="Ejercicios_T" Type="Self.Ejercicios_T" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DetalleEjercicioT" Type="Self.DetalleEjercicioT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ejercicios_T">
+              <PropertyRef Name="IdEjercicios_T" />
+            </Principal>
+            <Dependent Role="DetalleEjercicioT">
+              <PropertyRef Name="IdET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleInventario_Inventario">
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DetalleInventario" Type="Self.DetalleInventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inventario">
+              <PropertyRef Name="IdInventario" />
+            </Principal>
+            <Dependent Role="DetalleInventario">
+              <PropertyRef Name="IdInventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ejercicios_P_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ejercicios_P" Type="Self.Ejercicios_P" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DatosPersona">
               <PropertyRef Name="IdDatos" />
             </Principal>
-            <Dependent Role="Ejercicios">
+            <Dependent Role="Ejercicios_P">
               <PropertyRef Name="IdDatos" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ejercicios_T_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ejercicios_T" Type="Self.Ejercicios_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Ejercicios_T">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventario_login_DB">
+          <End Role="login_DB" Type="Self.login_DB" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login_DB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Medidas_DatosPersona">
-          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Medidas" Type="Self.Medidas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DatosPersona">
@@ -119,7 +251,9 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Pagos_DatosPersona">
-          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DatosPersona">
@@ -131,7 +265,9 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Problemas_DatosPersona">
-          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Problemas" Type="Self.Problemas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DatosPersona">
@@ -142,28 +278,65 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PWGBDModelStoreContainer">
+        <Association Name="FK_Turnos_login_DB">
+          <End Role="login_DB" Type="Self.login_DB" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Turnos" Type="Self.Turnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login_DB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Turnos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AppGymBDStoreContainer">
           <EntitySet Name="DatosPersona" EntityType="Self.DatosPersona" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Ejercicios" EntityType="Self.Ejercicios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleEjerciciosP" EntityType="Self.DetalleEjerciciosP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleEjercicioT" EntityType="Self.DetalleEjercicioT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleInventario" EntityType="Self.DetalleInventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ejercicios_P" EntityType="Self.Ejercicios_P" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ejercicios_T" EntityType="Self.Ejercicios_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="login_DB" EntityType="Self.login_DB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Medidas" EntityType="Self.Medidas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pagos" EntityType="Self.Pagos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Problemas" EntityType="Self.Problemas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="loginDB" EntityType="Self.loginDB" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [loginDB].[id] AS [id], 
-    [loginDB].[usuario] AS [usuario], 
-    [loginDB].[contraseña] AS [contraseña]
-    FROM [dbo].[loginDB] AS [loginDB]</DefiningQuery>
-          </EntitySet>
+          <AssociationSet Name="FK_DatosPersona_login_DB" Association="Self.FK_DatosPersona_login_DB">
+            <End Role="login_DB" EntitySet="login_DB" />
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+          </AssociationSet>
           <AssociationSet Name="FK_DatosPersona_Turnos" Association="Self.FK_DatosPersona_Turnos">
             <End Role="Turnos" EntitySet="Turnos" />
             <End Role="DatosPersona" EntitySet="DatosPersona" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ejercicios_DatosPersona" Association="Self.FK_Ejercicios_DatosPersona">
+          <AssociationSet Name="FK_DetalleEjerciciosP_Ejercicios_P" Association="Self.FK_DetalleEjerciciosP_Ejercicios_P">
+            <End Role="Ejercicios_P" EntitySet="Ejercicios_P" />
+            <End Role="DetalleEjerciciosP" EntitySet="DetalleEjerciciosP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleEjercicioT_Ejercicios_T" Association="Self.FK_DetalleEjercicioT_Ejercicios_T">
+            <End Role="Ejercicios_T" EntitySet="Ejercicios_T" />
+            <End Role="DetalleEjercicioT" EntitySet="DetalleEjercicioT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleInventario_Inventario" Association="Self.FK_DetalleInventario_Inventario">
+            <End Role="Inventario" EntitySet="Inventario" />
+            <End Role="DetalleInventario" EntitySet="DetalleInventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ejercicios_P_DatosPersona" Association="Self.FK_Ejercicios_P_DatosPersona">
             <End Role="DatosPersona" EntitySet="DatosPersona" />
-            <End Role="Ejercicios" EntitySet="Ejercicios" />
+            <End Role="Ejercicios_P" EntitySet="Ejercicios_P" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ejercicios_T_DatosPersona" Association="Self.FK_Ejercicios_T_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Ejercicios_T" EntitySet="Ejercicios_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventario_login_DB" Association="Self.FK_Inventario_login_DB">
+            <End Role="login_DB" EntitySet="login_DB" />
+            <End Role="Inventario" EntitySet="Inventario" />
           </AssociationSet>
           <AssociationSet Name="FK_Medidas_DatosPersona" Association="Self.FK_Medidas_DatosPersona">
             <End Role="DatosPersona" EntitySet="DatosPersona" />
@@ -177,11 +350,15 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             <End Role="DatosPersona" EntitySet="DatosPersona" />
             <End Role="Problemas" EntitySet="Problemas" />
           </AssociationSet>
+          <AssociationSet Name="FK_Turnos_login_DB" Association="Self.FK_Turnos_login_DB">
+            <End Role="login_DB" EntitySet="login_DB" />
+            <End Role="Turnos" EntitySet="Turnos" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PWGBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="AppGymBD" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="DatosPersona">
           <Key>
             <PropertyRef Name="IdDatos" />
@@ -190,36 +367,82 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="age" Type="Int32" />
-          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="Int32" />
           <Property Name="IdTurnos" Type="Int32" />
-          <NavigationProperty Name="Turnos" Relationship="Self.FK_DatosPersona_Turnos" FromRole="DatosPersona" ToRole="Turnos" />
-          <NavigationProperty Name="Ejercicios" Relationship="Self.FK_Ejercicios_DatosPersona" FromRole="DatosPersona" ToRole="Ejercicios" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="login_DB" Relationship="Self.FK_DatosPersona_login_DB" FromRole="DatosPersona" ToRole="login_DB" />
+          <NavigationProperty Name="Ejercicios_P" Relationship="Self.FK_Ejercicios_P_DatosPersona" FromRole="DatosPersona" ToRole="Ejercicios_P" />
+          <NavigationProperty Name="Ejercicios_T" Relationship="Self.FK_Ejercicios_T_DatosPersona" FromRole="DatosPersona" ToRole="Ejercicios_T" />
           <NavigationProperty Name="Medidas" Relationship="Self.FK_Medidas_DatosPersona" FromRole="DatosPersona" ToRole="Medidas" />
           <NavigationProperty Name="Pagos" Relationship="Self.FK_Pagos_DatosPersona" FromRole="DatosPersona" ToRole="Pagos" />
           <NavigationProperty Name="Problemas" Relationship="Self.FK_Problemas_DatosPersona" FromRole="DatosPersona" ToRole="Problemas" />
+          <NavigationProperty Name="Turnos" Relationship="AppGymBD.FK_DatosPersona_Turnos" FromRole="DatosPersona" ToRole="Turnos" />
         </EntityType>
-        <EntityType Name="Ejercicios">
+        <EntityType Name="DetalleEjerciciosP">
           <Key>
-            <PropertyRef Name="IdEjercicios" />
+            <PropertyRef Name="detalle_Ejercicios_P" />
           </Key>
-          <Property Name="IdEjercicios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="abdominales" Type="Int32" />
+          <Property Name="detalle_Ejercicios_P" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="tiempoEnSegundos" Type="Int32" />
+          <Property Name="IdEjercicios_P" Type="Int32" />
+          <NavigationProperty Name="Ejercicios_P" Relationship="Self.FK_DetalleEjerciciosP_Ejercicios_P" FromRole="DetalleEjerciciosP" ToRole="Ejercicios_P" />
+        </EntityType>
+        <EntityType Name="DetalleInventario">
+          <Key>
+            <PropertyRef Name="IdDetalleInventario" />
+          </Key>
+          <Property Name="IdDetalleInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="IdInventario" Type="Int32" />
+          <NavigationProperty Name="Inventario" Relationship="AppGymBD.FK_DetalleInventario_Inventario" FromRole="DetalleInventario" ToRole="Inventario" />
+        </EntityType>
+        <EntityType Name="Ejercicios_P">
+          <Key>
+            <PropertyRef Name="IdEjercicios_P" />
+          </Key>
+          <Property Name="IdEjercicios_P" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_ej_p" Type="DateTime" Precision="0" />
           <Property Name="IdDatos" Type="Int32" />
-          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Ejercicios_DatosPersona" FromRole="Ejercicios" ToRole="DatosPersona" />
-          <Property Name="fecha_ej" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Ejercicios_P_DatosPersona" FromRole="Ejercicios_P" ToRole="DatosPersona" />
+          <NavigationProperty Name="DetalleEjerciciosP" Relationship="Self.FK_DetalleEjerciciosP_Ejercicios_P" FromRole="Ejercicios_P" ToRole="DetalleEjerciciosP" />
+        </EntityType>
+        <EntityType Name="Ejercicios_T">
+          <Key>
+            <PropertyRef Name="IdEjercicios_T" />
+          </Key>
+          <Property Name="IdEjercicios_T" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dia" Type="Int32" />
+          <Property Name="IdDatos" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Ejercicios_T_DatosPersona" FromRole="Ejercicios_T" ToRole="DatosPersona" />
+          <NavigationProperty Name="DetalleEjercicioT" Relationship="AppGymBD.FK_DetalleEjercicioT_Ejercicios_T" FromRole="Ejercicios_T" ToRole="DetalleEjercicioT" />
+        </EntityType>
+        <EntityType Name="login_DB">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_DatosPersona_login_DB" FromRole="login_DB" ToRole="DatosPersona" />
+          <NavigationProperty Name="Inventario" Relationship="AppGymBD.FK_Inventario_login_DB" FromRole="login_DB" ToRole="Inventario" />
+          <NavigationProperty Name="Turnos" Relationship="AppGymBD.FK_Turnos_login_DB" FromRole="login_DB" ToRole="Turnos" />
         </EntityType>
         <EntityType Name="Medidas">
           <Key>
-            <PropertyRef Name="idMedidas" />
+            <PropertyRef Name="IdMedidas" />
           </Key>
-          <Property Name="idMedidas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMedidas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="altura" Type="Int32" />
           <Property Name="medidasAbd" Type="Int32" />
           <Property Name="medidasCintura" Type="Int32" />
           <Property Name="medidasPecho" Type="Int32" />
           <Property Name="IdDatos" Type="Int32" />
-          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Medidas_DatosPersona" FromRole="Medidas" ToRole="DatosPersona" />
           <Property Name="fecha_med" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Medidas_DatosPersona" FromRole="Medidas" ToRole="DatosPersona" />
         </EntityType>
         <EntityType Name="Pagos">
           <Key>
@@ -227,7 +450,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           </Key>
           <Property Name="IdPagos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="fecha" Type="DateTime" Precision="0" />
-          <Property Name="esAsociado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="esAsociado" Type="Int32" />
           <Property Name="IdDatos" Type="Int32" />
           <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Pagos_DatosPersona" FromRole="Pagos" ToRole="DatosPersona" />
         </EntityType>
@@ -236,7 +459,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             <PropertyRef Name="IdProblemas" />
           </Key>
           <Property Name="IdProblemas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="posee" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="posee" Type="Int32" />
           <Property Name="tipo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="IdDatos" Type="Int32" />
           <NavigationProperty Name="DatosPersona" Relationship="Self.FK_Problemas_DatosPersona" FromRole="Problemas" ToRole="DatosPersona" />
@@ -251,42 +474,38 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Turnos">
-          <Key>
-            <PropertyRef Name="IdTurnos" />
-          </Key>
-          <Property Name="IdTurnos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Horario" Type="Int32" />
-          <NavigationProperty Name="DatosPersona" Relationship="Self.FK_DatosPersona_Turnos" FromRole="Turnos" ToRole="DatosPersona" />
-        </EntityType>
-        <EntityType Name="loginDB">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="contraseña" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_DatosPersona_Turnos">
-          <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
+        <Association Name="FK_DatosPersona_login_DB">
+          <End Role="login_DB" Type="Self.login_DB" Multiplicity="0..1" />
           <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Turnos">
-              <PropertyRef Name="IdTurnos" />
+            <Principal Role="login_DB">
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="DatosPersona">
-              <PropertyRef Name="IdTurnos" />
+              <PropertyRef Name="IdUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Ejercicios_DatosPersona">
+        <Association Name="FK_Ejercicios_P_DatosPersona">
           <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
-          <End Role="Ejercicios" Type="Self.Ejercicios" Multiplicity="*" />
+          <End Role="Ejercicios_P" Type="Self.Ejercicios_P" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DatosPersona">
               <PropertyRef Name="IdDatos" />
             </Principal>
-            <Dependent Role="Ejercicios">
+            <Dependent Role="Ejercicios_P">
+              <PropertyRef Name="IdDatos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ejercicios_T_DatosPersona">
+          <End Role="DatosPersona" Type="Self.DatosPersona" Multiplicity="0..1" />
+          <End Role="Ejercicios_T" Type="Self.Ejercicios_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DatosPersona">
+              <PropertyRef Name="IdDatos" />
+            </Principal>
+            <Dependent Role="Ejercicios_T">
               <PropertyRef Name="IdDatos" />
             </Dependent>
           </ReferentialConstraint>
@@ -327,22 +546,40 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PWGBD" annotation:LazyLoadingEnabled="true">
+        <Association Name="FK_DetalleEjerciciosP_Ejercicios_P">
+          <End Role="Ejercicios_P" Type="Self.Ejercicios_P" Multiplicity="0..1" />
+          <End Role="DetalleEjerciciosP" Type="Self.DetalleEjerciciosP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ejercicios_P">
+              <PropertyRef Name="IdEjercicios_P" />
+            </Principal>
+            <Dependent Role="DetalleEjerciciosP">
+              <PropertyRef Name="IdEjercicios_P" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AppGym2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DatosPersona" EntityType="Self.DatosPersona" />
-          <EntitySet Name="Ejercicios" EntityType="Self.Ejercicios" />
+          <EntitySet Name="DetalleEjerciciosP" EntityType="Self.DetalleEjerciciosP" />
+          <EntitySet Name="DetalleInventario" EntityType="Self.DetalleInventario" />
+          <EntitySet Name="Ejercicios_P" EntityType="Self.Ejercicios_P" />
+          <EntitySet Name="Ejercicios_T" EntityType="Self.Ejercicios_T" />
+          <EntitySet Name="login_DB" EntityType="Self.login_DB" />
           <EntitySet Name="Medidas" EntityType="Self.Medidas" />
           <EntitySet Name="Pagos" EntityType="Self.Pagos" />
           <EntitySet Name="Problemas" EntityType="Self.Problemas" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="Turnos" EntityType="Self.Turnos" />
-          <EntitySet Name="loginDB" EntityType="Self.loginDB" />
-          <AssociationSet Name="FK_DatosPersona_Turnos" Association="Self.FK_DatosPersona_Turnos">
-            <End Role="Turnos" EntitySet="Turnos" />
+          <AssociationSet Name="FK_DatosPersona_login_DB" Association="Self.FK_DatosPersona_login_DB">
+            <End Role="login_DB" EntitySet="login_DB" />
             <End Role="DatosPersona" EntitySet="DatosPersona" />
           </AssociationSet>
-          <AssociationSet Name="FK_Ejercicios_DatosPersona" Association="Self.FK_Ejercicios_DatosPersona">
+          <AssociationSet Name="FK_Ejercicios_P_DatosPersona" Association="Self.FK_Ejercicios_P_DatosPersona">
             <End Role="DatosPersona" EntitySet="DatosPersona" />
-            <End Role="Ejercicios" EntitySet="Ejercicios" />
+            <End Role="Ejercicios_P" EntitySet="Ejercicios_P" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ejercicios_T_DatosPersona" Association="Self.FK_Ejercicios_T_DatosPersona">
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+            <End Role="Ejercicios_T" EntitySet="Ejercicios_T" />
           </AssociationSet>
           <AssociationSet Name="FK_Medidas_DatosPersona" Association="Self.FK_Medidas_DatosPersona">
             <End Role="DatosPersona" EntitySet="DatosPersona" />
@@ -356,15 +593,136 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             <End Role="DatosPersona" EntitySet="DatosPersona" />
             <End Role="Problemas" EntitySet="Problemas" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <AssociationSet Name="FK_DetalleEjerciciosP_Ejercicios_P" Association="Self.FK_DetalleEjerciciosP_Ejercicios_P">
+            <End Role="Ejercicios_P" EntitySet="Ejercicios_P" />
+            <End Role="DetalleEjerciciosP" EntitySet="DetalleEjerciciosP" />
+          </AssociationSet>
+          <EntitySet Name="Inventario" EntityType="AppGymBD.Inventario" />
+          <AssociationSet Name="FK_DetalleInventario_Inventario" Association="AppGymBD.FK_DetalleInventario_Inventario">
+            <End Role="Inventario" EntitySet="Inventario" />
+            <End Role="DetalleInventario" EntitySet="DetalleInventario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventario_login_DB" Association="AppGymBD.FK_Inventario_login_DB">
+            <End Role="login_DB" EntitySet="login_DB" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <EntitySet Name="Turnos" EntityType="AppGymBD.Turnos" />
+          <AssociationSet Name="FK_DatosPersona_Turnos" Association="AppGymBD.FK_DatosPersona_Turnos">
+            <End Role="Turnos" EntitySet="Turnos" />
+            <End Role="DatosPersona" EntitySet="DatosPersona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turnos_login_DB" Association="AppGymBD.FK_Turnos_login_DB">
+            <End Role="login_DB" EntitySet="login_DB" />
+            <End Role="Turnos" EntitySet="Turnos" />
+          </AssociationSet>
+          <EntitySet Name="DetalleEjercicioT" EntityType="AppGymBD.DetalleEjercicioT" />
+          <AssociationSet Name="FK_DetalleEjercicioT_Ejercicios_T" Association="AppGymBD.FK_DetalleEjercicioT_Ejercicios_T">
+            <End Role="Ejercicios_T" EntitySet="Ejercicios_T" />
+            <End Role="DetalleEjercicioT" EntitySet="DetalleEjercicioT" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="IdInventario" />
+          </Key>
+          <Property Name="IdInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoInventario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="DetalleInventario" Relationship="AppGymBD.FK_DetalleInventario_Inventario" FromRole="Inventario" ToRole="DetalleInventario" />
+          <NavigationProperty Name="login_DB" Relationship="AppGymBD.FK_Inventario_login_DB" FromRole="Inventario" ToRole="login_DB" />
+        </EntityType>
+        <Association Name="FK_DetalleInventario_Inventario">
+          <End Type="AppGymBD.Inventario" Role="Inventario" Multiplicity="0..1" />
+          <End Type="AppGymBD.DetalleInventario" Role="DetalleInventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inventario">
+              <PropertyRef Name="IdInventario" />
+            </Principal>
+            <Dependent Role="DetalleInventario">
+              <PropertyRef Name="IdInventario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventario_login_DB">
+          <End Type="AppGymBD.login_DB" Role="login_DB" Multiplicity="0..1" />
+          <End Type="AppGymBD.Inventario" Role="Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login_DB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Turnos">
+          <Key>
+            <PropertyRef Name="IdTurnos" />
+          </Key>
+          <Property Name="IdTurnos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Horario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="DatosPersona" Relationship="AppGymBD.FK_DatosPersona_Turnos" FromRole="Turnos" ToRole="DatosPersona" />
+          <NavigationProperty Name="login_DB" Relationship="AppGymBD.FK_Turnos_login_DB" FromRole="Turnos" ToRole="login_DB" />
+        </EntityType>
+        <Association Name="FK_DatosPersona_Turnos">
+          <End Type="AppGymBD.Turnos" Role="Turnos" Multiplicity="0..1" />
+          <End Type="AppGymBD.DatosPersona" Role="DatosPersona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turnos">
+              <PropertyRef Name="IdTurnos" />
+            </Principal>
+            <Dependent Role="DatosPersona">
+              <PropertyRef Name="IdTurnos" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turnos_login_DB">
+          <End Type="AppGymBD.login_DB" Role="login_DB" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppGymBD.Turnos" Role="Turnos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="login_DB">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Turnos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DetalleEjercicioT">
+          <Key>
+            <PropertyRef Name="IdDE" />
+          </Key>
+          <Property Name="IdDE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoDeEjercicio" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="repeticiones" Type="Int32" />
+          <Property Name="IdET" Type="Int32" />
+          <NavigationProperty Name="Ejercicios_T" Relationship="AppGymBD.FK_DetalleEjercicioT_Ejercicios_T" FromRole="DetalleEjercicioT" ToRole="Ejercicios_T" />
+        </EntityType>
+        <Association Name="FK_DetalleEjercicioT_Ejercicios_T">
+          <End Type="AppGymBD.Ejercicios_T" Role="Ejercicios_T" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AppGymBD.DetalleEjercicioT" Role="DetalleEjercicioT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ejercicios_T">
+              <PropertyRef Name="IdEjercicios_T" />
+            </Principal>
+            <Dependent Role="DetalleEjercicioT">
+              <PropertyRef Name="IdET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PWGBDModelStoreContainer" CdmEntityContainer="PWGBD">
+        <EntityContainerMapping StorageEntityContainer="AppGymBDStoreContainer" CdmEntityContainer="AppGym2Entities">
           <EntitySetMapping Name="DatosPersona">
-            <EntityTypeMapping TypeName="PWGBDModel.DatosPersona">
+            <EntityTypeMapping TypeName="AppGymBD.DatosPersona">
               <MappingFragment StoreEntitySet="DatosPersona">
                 <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -372,34 +730,74 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
                 <ScalarProperty Name="age" ColumnName="age" />
                 <ScalarProperty Name="sex" ColumnName="sex" />
                 <ScalarProperty Name="IdTurnos" ColumnName="IdTurnos" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Ejercicios">
-            <EntityTypeMapping TypeName="PWGBDModel.Ejercicios">
-              <MappingFragment StoreEntitySet="Ejercicios">
-                <ScalarProperty Name="fecha_ej" ColumnName="fecha_ej" />
-                <ScalarProperty Name="IdEjercicios" ColumnName="IdEjercicios" />
-                <ScalarProperty Name="abdominales" ColumnName="abdominales" />
+          <EntitySetMapping Name="DetalleEjerciciosP">
+            <EntityTypeMapping TypeName="AppGymBD.DetalleEjerciciosP">
+              <MappingFragment StoreEntitySet="DetalleEjerciciosP">
+                <ScalarProperty Name="detalle_Ejercicios_P" ColumnName="detalle_Ejercicios_P" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="tiempoEnSegundos" ColumnName="tiempoEnSegundos" />
+                <ScalarProperty Name="IdEjercicios_P" ColumnName="IdEjercicios_P" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleInventario">
+            <EntityTypeMapping TypeName="AppGymBD.DetalleInventario">
+              <MappingFragment StoreEntitySet="DetalleInventario">
+                <ScalarProperty Name="IdDetalleInventario" ColumnName="IdDetalleInventario" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="IdInventario" ColumnName="IdInventario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ejercicios_P">
+            <EntityTypeMapping TypeName="AppGymBD.Ejercicios_P">
+              <MappingFragment StoreEntitySet="Ejercicios_P">
+                <ScalarProperty Name="IdEjercicios_P" ColumnName="IdEjercicios_P" />
+                <ScalarProperty Name="fecha_ej_p" ColumnName="fecha_ej_p" />
                 <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Ejercicios_T">
+            <EntityTypeMapping TypeName="AppGymBD.Ejercicios_T">
+              <MappingFragment StoreEntitySet="Ejercicios_T">
+                <ScalarProperty Name="IdEjercicios_T" ColumnName="IdEjercicios_T" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="login_DB">
+            <EntityTypeMapping TypeName="AppGymBD.login_DB">
+              <MappingFragment StoreEntitySet="login_DB">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Medidas">
-            <EntityTypeMapping TypeName="PWGBDModel.Medidas">
+            <EntityTypeMapping TypeName="AppGymBD.Medidas">
               <MappingFragment StoreEntitySet="Medidas">
-                <ScalarProperty Name="fecha_med" ColumnName="fecha_med" />
-                <ScalarProperty Name="idMedidas" ColumnName="idMedidas" />
+                <ScalarProperty Name="IdMedidas" ColumnName="IdMedidas" />
                 <ScalarProperty Name="altura" ColumnName="altura" />
                 <ScalarProperty Name="medidasAbd" ColumnName="medidasAbd" />
                 <ScalarProperty Name="medidasCintura" ColumnName="medidasCintura" />
                 <ScalarProperty Name="medidasPecho" ColumnName="medidasPecho" />
                 <ScalarProperty Name="IdDatos" ColumnName="IdDatos" />
+                <ScalarProperty Name="fecha_med" ColumnName="fecha_med" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pagos">
-            <EntityTypeMapping TypeName="PWGBDModel.Pagos">
+            <EntityTypeMapping TypeName="AppGymBD.Pagos">
               <MappingFragment StoreEntitySet="Pagos">
                 <ScalarProperty Name="IdPagos" ColumnName="IdPagos" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
@@ -409,7 +807,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Problemas">
-            <EntityTypeMapping TypeName="PWGBDModel.Problemas">
+            <EntityTypeMapping TypeName="AppGymBD.Problemas">
               <MappingFragment StoreEntitySet="Problemas">
                 <ScalarProperty Name="IdProblemas" ColumnName="IdProblemas" />
                 <ScalarProperty Name="posee" ColumnName="posee" />
@@ -419,7 +817,7 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="PWGBDModel.sysdiagrams">
+            <EntityTypeMapping TypeName="AppGymBD.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -429,20 +827,31 @@ advertencia 6002: La tabla o vista 'PWGBD.dbo.loginDB' no tiene definida ninguna
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Turnos">
-            <EntityTypeMapping TypeName="PWGBDModel.Turnos">
-              <MappingFragment StoreEntitySet="Turnos">
-                <ScalarProperty Name="IdTurnos" ColumnName="IdTurnos" />
-                <ScalarProperty Name="Horario" ColumnName="Horario" />
+          <EntitySetMapping Name="Inventario">
+            <EntityTypeMapping TypeName="AppGymBD.Inventario">
+              <MappingFragment StoreEntitySet="Inventario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="TipoInventario" ColumnName="TipoInventario" />
+                <ScalarProperty Name="IdInventario" ColumnName="IdInventario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="loginDB">
-            <EntityTypeMapping TypeName="PWGBDModel.loginDB">
-              <MappingFragment StoreEntitySet="loginDB">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="usuario" ColumnName="usuario" />
-                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+          <EntitySetMapping Name="Turnos">
+            <EntityTypeMapping TypeName="AppGymBD.Turnos">
+              <MappingFragment StoreEntitySet="Turnos">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Horario" ColumnName="Horario" />
+                <ScalarProperty Name="IdTurnos" ColumnName="IdTurnos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleEjercicioT">
+            <EntityTypeMapping TypeName="AppGymBD.DetalleEjercicioT">
+              <MappingFragment StoreEntitySet="DetalleEjercicioT">
+                <ScalarProperty Name="IdET" ColumnName="IdET" />
+                <ScalarProperty Name="repeticiones" ColumnName="repeticiones" />
+                <ScalarProperty Name="tipoDeEjercicio" ColumnName="tipoDeEjercicio" />
+                <ScalarProperty Name="IdDE" ColumnName="IdDE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,91 @@
+﻿@using AplicacionWebGym.Models
+@model List<AplicacionWebGym.Models.DPCLS>
+
+@{
+    ViewBag.Title = "Lista_Personas";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].lastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].IdTurnos)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><b>
+                @Html.DisplayFor(modelItem => item.name)
+                </b>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                @if (((int?)item.sex) == 1)
+                {
+                    <span>Masculino</span>
+                }
+                @if (((int?)item.sex) == 2)
+                {
+                    <span>Femenino</span>
+                }
+                @if (((int?)item.sex) == 3)
+                {
+                    <span>X</span>
+                }
+            <td>
+                @if (((int?)item.IdTurnos) == 1)
+                {
+                    <span>2 de la tarde</span>
+                }
+                @if (((int?)item.IdTurnos) == 2)
+                {
+                    <span>3 de la tarde</span>
+                }
+                @if (((int?)item.IdTurnos) == 3)
+                {
+                    <span>7 de la tarde</span>
+                }
+                @if (((int?)item.IdTurnos) == 4)
+                {
+                    <span>8 de la tarde</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink(" ", "Editar", new { id = item.IdDatos }, new { @class = " btn btn-default glyphicon glyphicon-pencil" }) |
+                @Html.ActionLink(" ", "DetallePersona", new { id = item.IdDatos }, new { @class = " btn btn-default glyphicon glyphicon glyphicon-search" }) |
+                @Html.ActionLink(" ", "Eliminar_cliente", new { id = item.IdDatos }, new { @class = "btn btn-default glyphicon glyphicon-trash", onclick = "confirmDel(event)" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+        function confirmDel(e) {
+            var agree = confirm("¿Realmente deseas visitar este sitio?");
+
+            if (agree == false)
+                e.preventDefault();
+        }
+
+</script>

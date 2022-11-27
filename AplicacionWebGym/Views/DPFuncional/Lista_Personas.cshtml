@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AplicacionWebGym.Models.DPCLS>
+
+@{
+    ViewBag.Title = "Lista_Personas";
+}
+
+<h2> Lista de Clientes</h2>
+
+<div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @using (Html.BeginForm("generarPDF", "DPFuncional"))
+                {
+                    <p>  <h4><button id="submitButton" type="submit">Exportar PDF</button></h4></p>
+                }
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @using (Html.BeginForm())
+                {
+                    <p>
+                        <h4>
+                            @Html.TextBox("odatosCLS.lastName")
+                            <input type="submit" value="Buscar" />
+                        </h4>
+                    </p>
+                }
+            </li>
+        </ul>
+    </div>
+</div>
+
+@Html.Partial("_TablaClientes")

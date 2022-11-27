@@ -1,4 +1,5 @@
 ﻿using AplicacionWebGym.Models;
+using OfficeOpenXml.Drawing.Chart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,22 +19,31 @@ namespace AplicacionWebGym.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Login(loginDB objUser)
+
+        public ActionResult Login(login_DB oUser)
         {
+            int Tipo = 1;
             if (ModelState.IsValid)
             {
-                using (PWGBD db = new PWGBD())
+                using (AppGym2Entities db = new AppGym2Entities())
                 {
-                    var obj = db.loginDB.Where(a => a.usuario.Equals(objUser.usuario) && a.contraseña.Equals(objUser.contraseña)).FirstOrDefault();
+                    var obj = db.login_DB.Where(a => a.usuario.Equals(oUser.usuario) && a.contraseña.Equals(oUser.contraseña)).FirstOrDefault();
                     if (obj != null)
                     {
                         Session["UserID"] = obj.id.ToString();
                         Session["UserName"] = obj.usuario.ToString();
-                        return RedirectToAction("Index", "Home");
+                        Session["Id"] = obj.id;
+                        if (Tipo.Equals(obj.tipo)){
+                            return RedirectToAction("Index", "HomeFuncional");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "HomePersonalizado");
+                        }
                     }
                 }
             }
-            return View(objUser);
+            return View(oUser);
         }
 
 

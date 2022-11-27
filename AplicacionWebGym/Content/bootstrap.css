@@ -5038,10 +5038,10 @@ a.badge:focus {
   color: inherit;
   background-color: #eeeeee;
 }
-.jumbotron h1,
-.jumbotron .h1 {
-  color: inherit;
-}
+    .jumbotron h1,
+    .jumbotron .h1 {
+        color: #24b694;
+    }
 .jumbotron p {
   margin-bottom: 15px;
   font-size: 21px;

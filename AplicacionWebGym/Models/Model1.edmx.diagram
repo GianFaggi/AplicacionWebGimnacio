@@ -4,21 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bbe729cc9481448183f41d7cc11ca06c" Name="Diagram1">
-        <EntityTypeShape EntityType="PWGBDModel.DatosPersona" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.Ejercicios" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.Medidas" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.Pagos" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.Problemas" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.Turnos" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PWGBDModel.loginDB" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="PWGBDModel.FK_DatosPersona_Turnos" ManuallyRouted="false" />
-        <AssociationConnector Association="PWGBDModel.FK_Ejercicios_DatosPersona" ManuallyRouted="false" />
-        <AssociationConnector Association="PWGBDModel.FK_Medidas_DatosPersona" ManuallyRouted="false" />
-        <AssociationConnector Association="PWGBDModel.FK_Pagos_DatosPersona" ManuallyRouted="false" />
-        <AssociationConnector Association="PWGBDModel.FK_Problemas_DatosPersona" ManuallyRouted="false" />
-      </Diagram>
+      <Diagram DiagramId="6c1b1d01d31b41d7b118c788696035c4" Name="Diagram1">
+        <EntityTypeShape EntityType="AppGymBD.DatosPersona" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.DetalleEjerciciosP" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.DetalleInventario" Width="1.5" PointX="2.125" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.Ejercicios_P" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.Ejercicios_T" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.login_DB" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.Medidas" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.Pagos" Width="1.5" PointX="5.375" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.Problemas" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AppGymBD.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="AppGymBD.FK_DatosPersona_login_DB" ManuallyRouted="false" />
+        <AssociationConnector Association="AppGymBD.FK_Ejercicios_P_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="AppGymBD.FK_Ejercicios_T_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="AppGymBD.FK_Medidas_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="AppGymBD.FK_Pagos_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="AppGymBD.FK_Problemas_DatosPersona" ManuallyRouted="false" />
+        <AssociationConnector Association="AppGymBD.FK_DetalleEjerciciosP_Ejercicios_P" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AppGymBD.Inventario" Width="1.5" PointX="2.25" PointY="16.125" />
+        <AssociationConnector Association="AppGymBD.FK_DetalleInventario_Inventario" />
+        <AssociationConnector Association="AppGymBD.FK_Inventario_login_DB" />
+        <EntityTypeShape EntityType="AppGymBD.Turnos" Width="1.5" PointX="3" PointY="2.375" />
+        <AssociationConnector Association="AppGymBD.FK_DatosPersona_Turnos" />
+        <AssociationConnector Association="AppGymBD.FK_Turnos_login_DB" />
+        <EntityTypeShape EntityType="AppGymBD.DetalleEjercicioT" Width="1.5" PointX="7.5" PointY="10.625" />
+        <AssociationConnector Association="AppGymBD.FK_DetalleEjercicioT_Ejercicios_T" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

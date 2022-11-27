@@ -1,0 +1,100 @@
+﻿@model AplicacionWebGym.Models.DatosPersona
+
+@{
+    ViewBag.Title = "DetallePersona";
+    Layout = "~/Views/Shared/_LayoutFuncional.cshtml";
+}
+
+<h2>Detalle Cliente Seleccionado</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.IdDatos)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.IdDatos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sex)
+        </dt>
+
+        <dd>
+            @if (((int?)Model.sex) == 1)
+            {
+                <span>Masculino</span>
+            }
+            @if (((int?)Model.sex) == 2)
+            {
+                <span>Femenino</span>
+            }
+            @if (((int?)Model.sex) == 3)
+            {
+                <span>X</span>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTurnos)
+        </dt>
+
+        <dd>
+            @if (((int?)Model.IdTurnos) == 1)
+            {
+                <span>2 de la tarde</span>
+            }
+            @if (((int?)Model.IdTurnos) == 2)
+            {
+                <span>3 de la tarde</span>
+            }
+            @if (((int?)Model.IdTurnos) == 3)
+            {
+                <span>7 de la tarde</span>
+            }
+            @if (((int?)Model.IdTurnos) == 4)
+            {
+                <span>8 de la tarde</span>
+            }
+        </dd>
+
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.IdUsuario)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.IdUsuario)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Cliente", "Editar", new {  id = Model.IdDatos  } , new { @class = "btn btn-default"}) |
+    @Html.ActionLink("Volver a la lista de clientes", "Lista_Personas" , null, new { @class = "btn btn-default" })
+</p>

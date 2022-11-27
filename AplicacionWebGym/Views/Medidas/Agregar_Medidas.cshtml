@@ -17,14 +17,14 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>MedidasCLS</h4>
+            <h2>Agregar Medidas por Cliente</h2>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     
             <div class="form-group">
                 @Html.LabelFor(model => model.altura, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.altura, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.altura, new { htmlAttributes = new { @class = "form-control", @placeholder = "190" } })
                     @Html.ValidationMessageFor(model => model.altura, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.medidasAbd, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.medidasAbd, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.medidasAbd, new { htmlAttributes = new { @class = "form-control", @placeholder = "90" } })
                     @Html.ValidationMessageFor(model => model.medidasAbd, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.medidasCintura, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.medidasCintura, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.medidasCintura, new { htmlAttributes = new { @class = "form-control", @placeholder = "60" } })
                     @Html.ValidationMessageFor(model => model.medidasCintura, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.medidasPecho, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.medidasPecho, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.medidasPecho, new { htmlAttributes = new { @class = "form-control", @placeholder = "90" } })
                     @Html.ValidationMessageFor(model => model.medidasPecho, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -57,21 +57,21 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.fecha_med, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.fecha_med, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.fecha_med, new { htmlAttributes = new { @class = "form-control", @placeholder = "06/04/1997" } })
                     @Html.ValidationMessageFor(model => model.fecha_med, "", new { @class = "text-danger" })
                 </div>
             </div>
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Agregar" class="btn btn-success" />
                 </div>
             </div>
         </div>
     }
     
     <div>
-        @Html.ActionLink("Volver a la lista", "Lista_Personas_Medidas")
+        @Html.ActionLink("Volver a la lista", "Lista_Personas_Medidas", null, new { @class = "btn btn-default"} )
     </div>
 </body>
 </html>

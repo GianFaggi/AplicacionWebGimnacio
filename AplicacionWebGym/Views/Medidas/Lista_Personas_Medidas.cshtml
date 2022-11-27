@@ -12,18 +12,18 @@
     <title>Lista_Pagos</title>
 </head>
 <body>
-    <h2>Lista Personas</h2>
+    <h2>Lista de Clientes</h2>
 
-    <div class="navbar navbar-inverse navbar">
+    <div class="navbar navbar-inverse navbar" style="background-color: #d1dc5a">
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-left">
                 <li>
                     @using (Html.BeginForm())
                     {
                         <p>
                             <h4>
                                 @Html.TextBox("odatosPersona.lastName", "")
-                                <input type="submit" value="Buscar" />
+                                <input type="submit" value="Buscar por apellido" />
                             </h4>
 
                         </p>
@@ -54,8 +54,8 @@
                 </td>
                 <td>
 
-                    @Html.ActionLink("Ver lista de medidas", "Lista_Medidas", new { id = item.IdDatos })    |
-                    @Html.ActionLink("Agregar medidas", "Agregar_Medidas", new { id = item.IdDatos })
+                    @Html.ActionLink("Medidas", "Lista_Medidas", new { id = item.IdDatos }, new { @class = "btn btn-default  "})    |
+                    @Html.ActionLink("Agregar medidas", "Agregar_Medidas", new { id = item.IdDatos }, new { @class = "btn btn-default" })
 
                 </td>
             </tr>

@@ -1,0 +1,61 @@
+﻿@model AplicacionWebGym.Models.DetalleInventario
+
+@{
+    ViewBag.Title = "Detalle_Inventario";
+    Layout = "~/Views/Shared/_LayoutFuncional.cshtml";
+}
+
+<h2>Detalles Material</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.IdDetalleInventario)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.IdDetalleInventario)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @if (((int?)Model.estado) == 1)
+            {
+                <span>Bueno</span>
+            }
+            @if (((int?)Model.estado) == 2)
+            {
+                <span>Regular</span>
+            }
+            @if (((int?)Model.estado) == 3)
+            {
+                <span>Malo</span>
+            }
+        </dd>
+
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.IdInventario)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.IdInventario)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modificar", "Editar_Detalles", new {  id = Model.IdDetalleInventario } , new {@class = "btn btn-default"}) |
+    @Html.ActionLink("Volver a la lista de Materiales", "Lista_Tipo_Inventario", null, new { @class = "btn btn-default" })
+</p>

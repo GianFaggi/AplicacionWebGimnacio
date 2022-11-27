@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Aplicacion Web</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="background-color: #e0f7e0 ">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #45444e " >
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Inicio", "Index", "HomeFuncional",  new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse" >
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Clientes", "Lista_Personas", "DPFuncional")</li>
+                    <li>@Html.ActionLink("Agregar Cliente", "Agregar_Clientes", "DPFuncional")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Informacion <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Mediciones", "Lista_Personas_Medidas", "Medidas")</li>
+                            <li>@Html.ActionLink("Ejercicios", "Lista_Personas_Ejercicios", "EjerciciosFuncional")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Pagos", "Lista_Pagos_Persona", "PagosFuncional")</li>
+                    <li>@Html.ActionLink("Inventario", "Lista_Tipo_Inventario", "InventarioFuncional")</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Cerrar Sesion", "Logaut", "Login")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year MK APLICACIONES</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

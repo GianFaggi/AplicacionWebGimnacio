@@ -11,11 +11,17 @@ namespace AplicacionWebGym.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Problemas
     {
         public int IdProblemas { get; set; }
-        public string posee { get; set; }
+        [Required(ErrorMessage = "Ingrese si posee o no un problema.")]
+        [DisplayName("Posee un problema")]
+        public Nullable<int> posee { get; set; }
+        [Required(ErrorMessage = "Ingrese el tipo de problema que posee.")]
+        [DisplayName("Tipo de problema")]
         public string tipo { get; set; }
         public Nullable<int> IdDatos { get; set; }
     

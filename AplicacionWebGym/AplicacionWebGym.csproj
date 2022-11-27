@@ -155,26 +155,48 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DPController.cs" />
-    <Compile Include="Controllers\EjerciciosController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ControllersFuncional\DPFuncionalController.cs" />
+    <Compile Include="Controllers\ControllersFuncional\InventarioFuncionalController.cs" />
+    <Compile Include="Controllers\ControllersPersonalizado\DPPersonalizadoController.cs" />
+    <Compile Include="Controllers\ControllersPersonalizado\EjerciciosPersonalizadoController.cs" />
+    <Compile Include="Controllers\ControllersFuncional\EjerciciosFuncionalController.cs" />
+    <Compile Include="Controllers\ControllersFuncional\HomeFuncionalController.cs" />
+    <Compile Include="Controllers\ControllersPersonalizado\HomePersonalizadoController.cs" />
+    <Compile Include="Controllers\ControllersPersonalizado\InventarioPersonalizadoController.cs" />
+    <Compile Include="Controllers\ControllersPersonalizado\PagosPersonalizadoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\MedidasController.cs" />
-    <Compile Include="Controllers\PagosController.cs" />
-    <Compile Include="Controllers\ProblemasController.cs" />
-    <Compile Include="Controllers\TurnosController.cs" />
+    <Compile Include="Controllers\ControllersFuncional\MedidasController.cs" />
+    <Compile Include="Controllers\ControllersFuncional\PagosFuncionalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Models\DetalleInventarioCLS.cs" />
+    <Compile Include="Models\InventarioCLS.cs" />
+    <Compile Include="Models\DetalleEjercicioTCLS.cs" />
+    <Compile Include="Models\Ejercicios_TCLS.cs" />
+    <Compile Include="Models\DetalleEjercicioPCLS.cs" />
     <Compile Include="Models\DatosPersona.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DPCLS.cs" />
-    <Compile Include="Models\Ejercicios.cs">
+    <Compile Include="Models\DetalleEjerciciosP.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\loginDB.cs">
+    <Compile Include="Models\DetalleEjercicioT.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DetalleInventario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ejercicios_P.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ejercicios_T.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Inventario.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\login_DB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Medidas.cs">
@@ -207,12 +229,14 @@
     <Compile Include="Models\Turnos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel.cs" />
+    <Compile Include="Models\DPCLS.cs" />
     <Compile Include="Models\TurnosCLS.cs" />
     <Compile Include="Models\ProblemasCLS.cs" />
     <Compile Include="Models\PagosCLS.cs" />
     <Compile Include="Models\MedidasCLS.cs" />
     <Compile Include="Models\loginDBCLS.cs" />
-    <Compile Include="Models\EjerciciosCLS.cs" />
+    <Compile Include="Models\Ejercicios_PCLS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,10 +244,30 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fondo 1.jpg" />
+    <Content Include="Content\fondo 2.jpg" />
+    <Content Include="Content\fondo 3.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\AplicacionWebGym20220824155901 - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -234,23 +278,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Properties\PublishProfiles\AplicacionWebGym20220824155901 - Web Deploy.pubxml" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -273,35 +300,58 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutFuncional.cshtml" />
+    <Content Include="Views\HomeFuncional\About.cshtml" />
+    <Content Include="Views\HomeFuncional\Contact.cshtml" />
+    <Content Include="Views\HomeFuncional\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\DP\Lista_Personas.cshtml" />
-    <Content Include="Views\DP\Agregar_Clientes.cshtml" />
-    <Content Include="Views\DP\Editar.cshtml" />
-    <Content Include="Views\DP\DetallePersona.cshtml" />
-    <Content Include="Views\Turnos\Index.cshtml" />
-    <Content Include="Views\Pagos\Lista_Pagos_Persona.cshtml" />
-    <Content Include="Views\Pagos\Lista_Pagos.cshtml" />
-    <Content Include="Views\Pagos\Agregar_Pagos.cshtml" />
-    <Content Include="Views\Pagos\DetallePago.cshtml" />
-    <Content Include="Views\Ejercicios\Lista_Personas_Ejercicios.cshtml" />
-    <Content Include="Views\Ejercicios\Lista_Ejercicios.cshtml" />
-    <Content Include="Views\Ejercicios\Agregar_Ejercicio.cshtml" />
-    <Content Include="Views\Ejercicios\DetalleEjercicios.cshtml" />
-    <Content Include="Views\Ejercicios\EditarEjercicios.cshtml" />
+    <Content Include="Views\DPFuncional\Lista_Personas.cshtml" />
+    <Content Include="Views\DPFuncional\Agregar_Clientes.cshtml" />
+    <Content Include="Views\DPFuncional\Editar.cshtml" />
+    <Content Include="Views\PagosFuncional\Lista_Pagos_Persona.cshtml" />
+    <Content Include="Views\PagosFuncional\Lista_Pagos.cshtml" />
+    <Content Include="Views\PagosFuncional\Agregar_Pagos.cshtml" />
+    <Content Include="Views\EjerciciosFuncional\Lista_Personas_Ejercicios.cshtml" />
+    <Content Include="Views\EjerciciosFuncional\Lista_Fechas.cshtml" />
+    <Content Include="Views\EjerciciosFuncional\Agregar_Fecha.cshtml" />
     <Content Include="Views\Medidas\Lista_Personas_Medidas.cshtml" />
     <Content Include="Views\Medidas\Lista_Medidas.cshtml" />
     <Content Include="Views\Medidas\Agregar_Medidas.cshtml" />
-    <Content Include="Views\Medidas\DetalleMedidas.cshtml" />
-    <Content Include="Views\Medidas\EditarMedidas.cshtml" />
-    <Content Include="Views\Login\template.cshtml" />
+    <Content Include="Views\Shared\_LayoutPersonalizado.cshtml" />
+    <Content Include="Views\HomePersonalizado\Index.cshtml" />
+    <Content Include="Views\Shared\_TablaClientes.cshtml" />
+    <Content Include="Views\Shared\CrearCliente.cshtml" />
+    <Content Include="Views\EjerciciosFuncional\Lista_Ejercicios.cshtml" />
+    <Content Include="Views\EjerciciosFuncional\Agregar_Ejercicio.cshtml" />
+    <Content Include="Views\InventarioFuncional\Lista_Tipo_Inventario.cshtml" />
+    <Content Include="Views\InventarioFuncional\Detalle_Inventario.cshtml" />
+    <Content Include="Views\InventarioFuncional\Agregar_Tipo_Inventario.cshtml" />
+    <Content Include="Views\DPFuncional\DetallePersona.cshtml" />
+    <Content Include="Views\InventarioFuncional\Agregar_Detalle_Inventario.cshtml" />
+    <Content Include="Views\InventarioFuncional\Editar_Detalles.cshtml" />
+    <Content Include="Views\DPPersonalizado\Lista_Personas_Personalizado.cshtml" />
+    <Content Include="Views\DPPersonalizado\Agregar_Clientes_Personalizado.cshtml" />
+    <Content Include="Views\DPPersonalizado\DetallePersona.cshtml" />
+    <Content Include="Views\DPPersonalizado\Editar_Personalizado.cshtml" />
+    <Content Include="Views\EjerciciosPersonalizado\Lista_Personas_Ejercicios_Personalizados.cshtml" />
+    <Content Include="Views\EjerciciosPersonalizado\Lista_Dias.cshtml" />
+    <Content Include="Views\EjerciciosPersonalizado\Agregar_Dias.cshtml" />
+    <Content Include="Views\EjerciciosPersonalizado\Lista_Ejercicios_Personalizado.cshtml" />
+    <Content Include="Views\EjerciciosPersonalizado\Agregar_Ejercicio_Personalizado.cshtml" />
+    <Content Include="Views\EjerciciosPersonalizado\Editar_Ejercicios_Personalizados.cshtml" />
+    <Content Include="Views\PagosPersonalizado\Lista_Pagos_Persona_Personalizado.cshtml" />
+    <Content Include="Views\Shared\_Pagos.cshtml" />
+    <Content Include="Views\PagosPersonalizado\Lista_Pagos_Personalizado.cshtml" />
+    <Content Include="Views\PagosPersonalizado\Agregar_Pagos_Personalizado.cshtml" />
+    <Content Include="Views\InventarioPersonalizado\Lista_Tipo_Inventario_Personalizado.cshtml" />
+    <Content Include="Views\InventarioPersonalizado\Agregar_Tipo_Inventario_Personalizado.cshtml" />
+    <Content Include="Views\InventarioPersonalizado\Agregar_Detalle_Inventario_Personalizado.cshtml" />
+    <Content Include="Views\InventarioPersonalizado\Detalle_Inventario_Personalizado.cshtml" />
+    <Content Include="Views\InventarioPersonalizado\Editar_Detalles_Personalizado.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Problemas\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
